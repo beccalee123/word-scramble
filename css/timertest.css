@@ -1,0 +1,16 @@
+
+#timer {
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 200px;
+    line-height: 100px;
+    height: 100px;
+    text-align: center;
+    
+}
+
+#time {
+    /* display: inline-block; */
+    /* margin: 0 auto; */
+     /* text-align: center;  */
+}
