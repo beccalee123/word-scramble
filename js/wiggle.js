@@ -71,10 +71,10 @@ function renderInitial(){
         // console.log('wordTopLeftX + letterSpacing * i: ', wordTopLeftX + letterSpacing * i);
         allLetters[i].xInitial = wordTopLeftX + letterSpacing * i;
         allLetters[i].yInitial = wordTopLeftY;
-        allLetters[i].asdf();
+        allLetters[i].initialize();
     }
 }
-renderInitial();
+
 
 function Letter(letter) {
     this.letter = letter;
@@ -93,10 +93,12 @@ function Letter(letter) {
 
 Letter.prototype.wiggle = function() {
     // TODO: add function to wiggle
+    console.log(`Wiggle called on ${this.letter}`);
 }
 
 Letter.prototype.move = function(startX, startY, endX, endY) {
     // TODO: add function to move the letter
+    console.log(`move called on ${this.letter}`);
 }
 
 Letter.prototype.draw = function() {
@@ -106,11 +108,14 @@ Letter.prototype.draw = function() {
 
     // draw the letter at current position
     ctx.fillText(`${this.letter}`, this.xPosition, this.yPosition);
+
+    console.log(`draw called on ${this.letter}`);
 }
 
 Letter.prototype.update = function() {
     // TODO: add function to increment position
-    
+    console.log(`updated called on ${this.letter}`);
+
     if (this.xPosition <= 100 ){
         this.xPosition += this.xSpeed;
         
@@ -119,7 +124,10 @@ Letter.prototype.update = function() {
     }
 }
 
-Letter.prototype.asdf = function() {
+Letter.prototype.initialize = function() {
+    console.log(`initialize called on ${this.letter}`);
     this.xPosition = xInitial;
     this.yPosition = yInitial;
 }
+
+renderInitial();
