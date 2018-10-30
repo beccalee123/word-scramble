@@ -77,11 +77,7 @@ function renderTimer(){
     timeLeft = maxTimeAllowed;
   }
 
-  // game over
-  if (timeLeft < 0) {
-    timeLeft = 0;
-    clearInterval(timer); 
-  }
+
 
   document.getElementById('time').textContent = `timeLeft: ${timeLeft / 1000}`;
 
@@ -96,9 +92,14 @@ function renderTimer(){
 
 // called constantly during game
 function renderPage() {
-  renderTimer()
+  renderTimer();
 
-
+  // game over
+  if (timeLeft < 0) {
+    timeLeft = 0;
+    clearInterval(timer); // cancel constant timer calls to this function
+    // TODO: add any other game over functions here:
+  }
 }
 
 
