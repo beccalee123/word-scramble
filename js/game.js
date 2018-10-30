@@ -29,7 +29,9 @@ var maxTimeAllowed = 60 * 5 * 1000; // max allowed time in ms
 
 var timeLeft = initialTimeAllowed; // remaining time
 var bonusTime = 0; // accumulated bonus time in ms
+var penaltyTime = 0; // accumulated time penalty
 var started = false; // tracks whether the game is started for initial render
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -72,7 +74,7 @@ function addTime() {
 }
 
 function subTime() {
-    bonusTime = bonusTime - 15000;
+    penaltyTime = penaltyTime + 15000;
     clearInput();
     renderTimer();
 }
@@ -88,7 +90,7 @@ function renderTimer() {
     }
 
     // ~~~~~~ main decrement time ~~~~~~~~~
-    timeLeft = initialTimeAllowed - timeElapsed + bonusTime;
+    timeLeft = initialTimeAllowed - timeElapsed + bonusTime - penaltyTime;
 
     // game over
     if (timeLeft < 0) {
