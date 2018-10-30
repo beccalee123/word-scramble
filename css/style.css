@@ -1,0 +1,21 @@
+body {
+  background-color: rgb(51, 134, 167);
+  color: rgb(225, 246, 255);
+  text-align: center;
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+h1 {
+  font-family: 'Slackey', cursive;
+  font-size: 60px;
+  text-align: center;
+  text-shadow: 4px 4px rgb(21, 218, 208)
+}
+
+h3 {
+  font-family: 'Overpass Mono', monospace;
+}
+
+h4 {
+  color: rgb(19, 253, 242);
+}
