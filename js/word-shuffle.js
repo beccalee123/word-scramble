@@ -2,7 +2,6 @@
 
 var shuffledList = [];
 
-
 //shuffles an array into another array
 //array.shuffle(arry) 
 Array.prototype.shuffle = function(array1) {
@@ -27,8 +26,8 @@ function scrambledWord(roundNumber) {
   var shuffledWord = [];
 
   //console.log(word);
+
   //scramble until shuffledWord is different from letterArray
-  
   do {
     shuffledWord.shuffle(letterArray);
   } while (shuffledWord === letterArray) {
