@@ -63,11 +63,12 @@ function newElement(type, content, parent) {
   parent.appendChild(element);
 }
 
-//retrieves username and score from local storage
+//retrieves username and score from local storage and place it into allHighScore array.
 function updateNewScore() {
   if (localStorage.endGameScore) {
     var endGameScore = JSON.parse(localStorage.endGameScore);
     new Highscore(endGameScore[0], endGameScore[1]);
+    localStorage.removeItem('endGameScore');
   }
 }
 
@@ -77,7 +78,6 @@ function updateNewScore() {
 //   localStorage.setItem('endGameScore', JSON.stringify(endGameScore));
 // }
 
-//need to prevent data from redoing itself upon refresh
 
 function makeHeaderRow() {
   var theadEl = document.createElement('thead');
