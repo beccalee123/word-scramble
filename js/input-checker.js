@@ -1,6 +1,6 @@
 //TEST WORD
-var testWord = 'Word'
-var altWord = 'Altword'
+var testWord = 'WORD'
+var altWord = 'ALTWORD'
 
 //CREATE VARIABLES
 var scrambleSubmission = document.getElementById('scramble-submit');
