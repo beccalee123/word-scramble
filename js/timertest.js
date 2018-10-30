@@ -6,6 +6,10 @@ document.getElementById('subTime').addEventListener('click', subTime);
 document.getElementById('resetTimer').addEventListener('click', resetTimer);
 
 
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//              timer globals
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var timer;  // pointer to setInterval for stopping and starting timer
 
 var updateInterval = 10; // time in ms between renders
@@ -19,6 +23,9 @@ var bonusTime = 0; // accumulated bonus time in ms
 var started = false; // tracks whether the game is started for initial render
 
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//              timer functions
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 renderPage();
 
 function resetTimer() {
@@ -45,6 +52,13 @@ function startTimer() {
 
 function addTime() {
   bonusTime = bonusTime + 15000;
+  console.log(bonusTime);
+  // cap bonus time 5 min - 2 min = 3 min
+  var maxBonusTime = maxTimeAllowed - initialTimeAllowed;
+  if ( bonusTime > maxBonusTime) {
+    bonusTime = maxBonusTime;
+  }
+  console.log(bonusTime);
   renderPage();
 }
 
