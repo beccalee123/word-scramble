@@ -1,11 +1,9 @@
 'user strict';
 
 document.getElementById('startTimer').addEventListener('click', startTimer);
-document.getElementById('stopTimer').addEventListener('click', stopTimer);
 document.getElementById('addTime').addEventListener('click', addTime);
 document.getElementById('subTime').addEventListener('click', subTime);
 document.getElementById('resetTimer').addEventListener('click', resetTimer);
-
 
 
 var timer;  // pointer to setInterval for stopping and starting timer
@@ -24,8 +22,13 @@ var started = false; // tracks whether the game is started for initial render
 renderPage();
 
 function resetTimer() {
+  
+  // disable interval function calls
+  clearInterval(timer); 
+
+  started = false;
   bonusTime = 0;
-  startTime = Date.now();
+
   renderPage();
 }
 
@@ -40,10 +43,6 @@ function startTimer() {
   timer = setInterval(renderPage, updateInterval);
 }
 
-function stopTimer() {
-  clearInterval(timer);
-}
-
 function addTime() {
   bonusTime = bonusTime + 15000;
   renderPage();
@@ -54,18 +53,19 @@ function subTime() {
   renderPage();
 }
 
-function renderPage() {
-
-  // if not started render 0 sec time elapsed
+function renderTimer(){
+  // if game hasn't started render 0 sec time elapsed
   var timeElapsed;
   if (started) {
     timeElapsed = Date.now() - startTime;
   } else {
     timeElapsed = 0;
   }
+
+  // ~~~~~~ main decrement time ~~~~~~~~~
   timeLeft = initialTimeAllowed - timeElapsed + bonusTime;
 
-  // if timeLeft > maxTimeAllowed, set timeLeft to be maxTimeAllowed
+  // if too much bonus time
   if (timeLeft > maxTimeAllowed) {
     // calculate extra bonus time
     var extraBonusTime = timeLeft - maxTimeAllowed;
@@ -77,10 +77,10 @@ function renderPage() {
     timeLeft = maxTimeAllowed;
   }
 
-  if (timeLeft <= 0) {
-    // console.log('timeLeft <= 0');
-    stopTimer()
+  // game over
+  if (timeLeft < 0) {
     timeLeft = 0;
+    clearInterval(timer); 
   }
 
   document.getElementById('time').textContent = `timeLeft: ${timeLeft / 1000}`;
@@ -90,10 +90,17 @@ function renderPage() {
   document.getElementById('timerBar').textContent = `${timeLeft}`;
 
   // bonus bar
-  document.getElementById('bonusBar').style.width = `${(bonusTime / maxTimeAllowed) * 600}px`;
-  document.getElementById('bonusBar').textContent = `${bonusTime}`;
+  // document.getElementById('bonusBar').style.width = `${(bonusTime / maxTimeAllowed) * 600}px`;
+  // document.getElementById('bonusBar').textContent = `${bonusTime}`;
+}
+
+// called constantly during game
+function renderPage() {
+  renderTimer()
+
 
 }
+
 
 
 // ~~~~~~~~~~~~~ Timer 2 for testing ~~~~~~~~~~~~
