@@ -109,3 +109,6 @@ function renderHighScores() {
 renderHighScores();
 
 // +++++++++++++++++++++++++++ WIP +++++++++++++++++++++++++++++++
+
+// change nav item color
+document.getElementsByTagName('li')[2].style.backgroundColor = 'lightblue';
