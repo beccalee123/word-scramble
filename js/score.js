@@ -12,18 +12,15 @@
 // sorts table array by highest score
 // creates and appends table to DOM
 
-
-//ISSUE: if this page is visited before the user plays a game the local storage retrieval will get really updset.
-
 // +++++++++++++++++++++++++++ DATA ++++++++++++++++++++++++++++++
-var allHighScores = [];
-var highScoreTable = document.getElementById('high-score-table');
 
 function Highscore(userName, score) {
   this.userName = userName;
   this.score = score;
-  allHighScores.push(this);
+  Highscore.allHighScores.push(this);
 }
+Highscore.allHighScores = [];
+Highscore.highScoreTable = document.getElementById('high-score-table');
 
 // check for local storage
 if (localStorage.highScoreData) {
@@ -53,7 +50,7 @@ Highscore.prototype.renderUserData = function(rank) {
   newElement('td', rank, trEl);
   newElement('td', this.userName, trEl);
   newElement('td', this.score, trEl);
-  highScoreTable.appendChild(trEl);
+  Highscore.highScoreTable.appendChild(trEl);
 };
 
 
@@ -84,12 +81,12 @@ function makeHeaderRow() {
   newElement('th', 'Rank', theadEl);
   newElement('th', 'Name', theadEl);
   newElement('th', 'Score', theadEl);
-  highScoreTable.appendChild(theadEl);
+  Highscore.highScoreTable.appendChild(theadEl);
 }
 
 //sorts instances of Highscore
 function sortScores() {
-  allHighScores.sort(function (a, b) {
+  Highscore.allHighScores.sort(function (a, b) {
     return b.score - a.score;
   });
 }
@@ -99,10 +96,10 @@ function renderHighScores() {
   makeHeaderRow();
   updateNewScore();
   sortScores();
-  for (var i = 0; i < allHighScores.length; i++) {
-    allHighScores[i].renderUserData(i + 1);
+  for (var i = 0; i < Highscore.allHighScores.length; i++) {
+    Highscore.allHighScores[i].renderUserData(i + 1);
   }
-  localStorage.setItem('highScoreData', JSON.stringify(allHighScores));
+  localStorage.setItem('highScoreData', JSON.stringify(Highscore.allHighScores));
 }
 
 // +++++++++++++++++++++++++++ EXECUTABLE ++++++++++++++++++++++++
