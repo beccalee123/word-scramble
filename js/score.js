@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // High score submitted on game.html
 // submission turned into object via constructor
@@ -12,11 +12,9 @@
 // sorts table array by highest score
 // creates and appends table to DOM
 
-
 // +++++++++++++++++++++++++++ DATA ++++++++++++++++++++++++++++++
 var allHighScores = [];
 var highScoreTable = document.getElementById('high-score-table');
-
 
 function Highscore(userName, score) {
   this.userName = userName;
@@ -24,35 +22,36 @@ function Highscore(userName, score) {
   allHighScores.push(this);
 }
 
+if (!localStorage.highScoreData) {
 new Highscore('Becca', 20);
-new Highscore('Brent', 40);
+new Highscore('Brent', 32);
 new Highscore('Demi', 45);
 new Highscore('Fletcher', 60);
 new Highscore('Jake', 70);
-new Highscore('Bird', 10);
+new Highscore('Bird', 7);
+new Highscore('Noah', 45);
+new Highscore('Tara', 62);
+new Highscore('Zahra', 90);
+new Highscore('Sam', 40);
+} else {
 
+allHighScores = JSON.parse(localStorage.highScoreData);
+
+}
 
 // +++++++++++++++++++++++++++ FUNCTION DECLARATIONS +++++++++++++
 
-
-Highscore.prototype.renderUserData = function() {
-  // ---sorting function here?
+Highscore.prototype.renderUserData = function(rank) {
   var trEl = document.createElement('tr');
-
-  var tdEl = document.createElement('td');
-  tdEl.textContent = this.userName;
-  trEl.appendChild(tdEl);  
-
-  var tdEl = document.createElement('td');
-  tdEl.textContent = this.score;
-  trEl.appendChild(tdEl);
-
+  newElement('td', rank, trEl);
+  newElement('td', this.userName, trEl);
+  newElement('td', this.score, trEl);
   highScoreTable.appendChild(trEl);
 };
 
 function newElement(type, content, parent) {
   var element = document.createElement(type);
-  element.textcontent = content;
+  element.textContent = content;
   parent.appendChild(element);
 }
 
@@ -64,18 +63,21 @@ function makeHeaderRow() {
   highScoreTable.appendChild(theadEl);
 }
 
-function renderHighScores() {
-  for (var i = 0; i < allHighScores.length; i++)
-    allHighScores[i].renderUserData();
+function sortScores() {
+  allHighScores.sort(function (a, b) {
+    return b.score - a.score;
+  });
 }
 
-
+function renderHighScores() {
+  sortScores();
+  for (var i = 0; i < allHighScores.length; i++) {
+    allHighScores[i].renderUserData(i + 1);
+  }
+}
 
 // +++++++++++++++++++++++++++ EXECUTABLE ++++++++++++++++++++++++
 makeHeaderRow();
 renderHighScores();
-
-
-
 
 // +++++++++++++++++++++++++++ WIP +++++++++++++++++++++++++++++++
