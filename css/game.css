@@ -1,0 +1,19 @@
+
+#timerBarContainer {
+    position: relative;
+    display: inline-block;
+    background-color: rgb(52, 85, 52);
+    height: 30px;
+    /* width: 600px; */ /*max width of bar is 600px*/
+    width: 240px;
+    margin-left: 30px; 
+}
+
+#timerBar {
+    position: absolute;
+    top: 3px;
+    left: 0px;
+    background-color: lightgreen;
+    height: 24px;
+    text-align: left;
+}

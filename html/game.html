@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="../css/reset.css" />
   <link rel="stylesheet" type="text/css" href="../css/style.css" />
   <link rel="stylesheet" type="text/css" href="../css/game.css" />
+  <link href="https://fonts.googleapis.com/css?family=Hind+Siliguri%7COverpass+Mono%7CSlackey" rel="stylesheet">
 </head>
 
 <body>
@@ -30,14 +31,17 @@
   </nav>
   <main>
 
-    <div>Timer</div>
+    <!-- Timer bar -->
+    <div id="timerBarContainer"><div id="timerBar">Timer bar here</div></div>
     <section>
       <div>Scramble div</div>
       <div>
-        <input />
-        <button>Submit</button>
-        <button>Skip</button>
-        <p>Message as needed <span></span></p>
+        <input id="input"/>
+        
+        <button id="scramble-submit">Submit</button>
+        <button id="skipWord">Skip</button>
+        <p id="alerts"></p>
+        <button id="startGame">Go!</button>
       </div>
     </section>
   </main>
