@@ -17,7 +17,7 @@ var handleScrambleSubmission = function (event) {
   //prevent page reload on submission. Will need to add this back in, but is currently breaking the keyup function.
   //event.preventDefault();
   //prevent empty fields
-  if (input.value == '') {
+  if (input.value === '') {
     document.getElementById('alerts').innerHTML = 'Field cannot be empty';
     //check for correct word
   } else if (input.value === testWord) { //this will need to be updated for final version to reflect word scramble code setup
