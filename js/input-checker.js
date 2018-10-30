@@ -1,11 +1,17 @@
 //TEST WORD
 var testWord = 'Word'
+var altWord = 'Altword'
 
 //will need to create handling for uppercase/lowercase letters when accepting submission
 
-//Create variable for submit?
+//Create variables
 var scrambleSubmission = document.getElementById('scramble-submit');
 var input = document.getElementById('input');
+
+//Function for form clearing?
+function clearInput(){
+  input.value = '';
+};
 
 //FORM SUBMISSION
 var handleScrambleSubmission = function(event){
@@ -16,8 +22,15 @@ var handleScrambleSubmission = function(event){
   if (input.value == ''){
   return alert('Field cannot be empty');
   //check for correct word
-  } else if (input.value === testWord){ //this will need to be updated for final version
-  return alert('Good job!!!')
+  } else if (input.value === testWord){ //this will need to be updated for final version to reflect word scramble code setup
+    clearInput();
+  return alert('Good job!!!');
+  } else if (input.value === altWord){
+    clearInput();
+    return alert(`${input.value} is a real word, but we're looking for something with an Ocean theme.`);
+  } else if (input.value !== testWord){
+    clearInput();
+    return alert(`Nice try, but ${input.value} is not correct. Try again!`);
   }
 }
 
