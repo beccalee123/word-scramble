@@ -2,13 +2,11 @@
 var testWord = 'Word'
 var altWord = 'Altword'
 
-//will need to create handling for uppercase/lowercase letters when accepting submission
-
-//Create variables
+//CREATE VARIABLES
 var scrambleSubmission = document.getElementById('scramble-submit');
 var input = document.getElementById('input');
 
-//Function for form clearing?
+//FUNCTION FOR FORM CLEARING
 function clearInput() {
   input.value = '';
 };
@@ -46,6 +44,8 @@ input.addEventListener('keyup', function (e) {
     event.preventDefault();
   }
 });
+
+//ADD FEATURE SO ALL TEXT ENTERED INTO INPUT IS DISPLAYED AS UPPERCASE
 
 // forceKeyPressUppercase function sourced from  https://www.the-art-of-web.com/html/input-field-uppercase/
 
