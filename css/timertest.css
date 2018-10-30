@@ -9,7 +9,7 @@
     width: 300px;
     line-height: 100px;
     height: 100px;
-    text-align: center;
+    text-align: left;
     
 }
 
@@ -19,12 +19,12 @@
      /* text-align: center;  */
 }
 
-#timerBarContainer {
+#timerBarContainer, #timerBarContainer2 {
     height: 50px;
     width: 600px;
 }
 
-#timerBar, #bonusBar {
+#timerBar, #bonusBar, #timerBar2, #bonusBar2 {
     height: 50px;
     background-color: lightgreen;
 }
