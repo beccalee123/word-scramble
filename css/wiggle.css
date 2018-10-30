@@ -1,0 +1,24 @@
+*, li, ul, #word-container, canvas, body, button, p, h1 {
+    border: 1px solid black;
+}
+
+
+li {
+    font-size: 2em; 
+    display: inline-block;
+    font-family: monospace;
+}
+
+#word-container{
+    position: relative;
+    width: 400px;
+    height: 100px;
+    text-align: center;
+
+}
+
+#word-container ul{
+    position: absolute;
+    top: 50px;
+    left: 100px; 
+}
