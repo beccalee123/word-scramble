@@ -1,3 +1,13 @@
+* , h1, h2, h3, h4, body, main, button, p, nav, header, ul, li, section, td, tr, th{
+  border: 1px solid black;
+}
+
+
 td {
   padding: 5px;
+}
+
+h3 {
+  font-size: 30px;
+  margin-bottom: 20px;
 }
