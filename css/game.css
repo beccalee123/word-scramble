@@ -22,9 +22,9 @@ input {
     /* text-align: center; */
     color: navy;
     font-size: 75px;
-    margin-top: 80px;
-    vertical-align: middle;
+    margin-top: 60px;
     display: inline-block;
+    font-family: 'Overpass Mono', monospace;
 }
 
 #gameSpace {
