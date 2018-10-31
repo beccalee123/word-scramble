@@ -268,12 +268,12 @@ function handleSwapButton(newScramble) {
     for (var i = 0; i < wordArray.length; i++){
 
         // when a letter appears in the newScrambleArray
-        // var newIndex = wordArray.indexOf(newScrambleArray[i]);
+        // keep note of its index
         var newIndex = newScrambleArray.indexOf(wordArray[i]);
         console.log('wordArray[i]: ', wordArray[i]);
         console.log('newScrambleArray[i]: ', newScrambleArray[i]);
         console.log('newIndex: ', newIndex);
-        newScrambleArray[i] = newScramble[i];
+        // newScrambleArray[i] = newScramble[i];
         // console.log('newScrambleArray: ', newScrambleArray);
     }
 
