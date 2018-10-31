@@ -5,6 +5,25 @@ var endGameScore = [0];
 
 
 
+//++++++++++++ end game sequence +++++++++++++++++
+
+
+function endGameDataCollection() {
+  var gameP = document.getElementById('scrambleP');
+  
+  gameP.innerHTML = (`Well played! You got a score of ${endGameScore[0]}! Would you like to submit your score and see how well you did compared to others?`);
+
+
+  // gameDiv.appendChild(thingy);
+
+  //append input box with id
+  //append submit button with id
+  //attach listener to submit button
+  //include checks for blank input
+  //trigger storage
+}
+
+
 // notification on page leave
 window.addEventListener('beforeunload', function(e) {
   return 'dummy text';
@@ -58,6 +77,7 @@ function startGame() {
 
 function endGame() {
   deactivateSubmission();
+  started = false;
   
   //localStorage setItem score
   //prompt user info
