@@ -1,19 +1,55 @@
 
-#timerBarContainer {
-    position: relative;
-    display: inline-block;
-    background-color: rgb(52, 85, 52);
-    height: 30px;
+/* #timerBarContainer { */
+    /* position: relative; */
+    /* display: inline-block; */
+    /* display: block; */
+    /* background-color: rgb(52, 85, 52); */
+    /* height: 30px; */
     /* width: 600px; */ /*max width of bar is 600px*/
-    width: 240px;
-    margin-left: 30px; 
-}
+    /* width: 240px; */
+    /* margin: 20px auto; */
+/* } */
 
 #timerBar {
-    position: absolute;
+    /* position: absolute; */
+    display: block;
     top: 3px;
     left: 0px;
-    background-color: lightgreen;
+    background-color: rgb(37, 207, 37);
     height: 24px;
     text-align: left;
+    box-shadow: 5px 5px black;
+    margin: 20px auto;
+}
+
+input {
+    width: 500px;
+    height: 100px;
+    display: block;
+    font-size: 50px;
+    font-family: 'Overpass Mono', monospace;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgb(225, 246, 255);
+    color: navy;
+}
+
+#scrambleP {
+    text-align: center;
+    background: rgb(225, 246, 255);
+    color: navy;
+    width: 500px;
+    height: 70px;
+    font-size: 75px;
+    margin: 20px auto;
+    vertical-align: middle;
+    padding: 60px;
+}
+
+h3 {
+    font-family: 'Slackey', cursive;
+    font-size: 40px;
+    text-transform: uppercase;
+    text-align: center;
 }
