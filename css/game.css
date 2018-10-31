@@ -19,15 +19,64 @@ input {
 }
 
 #scrambleP {
+    /* text-align: center; */
+    color: navy;
+    font-size: 75px;
+    margin-top: 80px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#gameSpace {
+    background: rgb(225, 246, 255);
+    width: 620px;
+    height: 190px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+#end-game-alert {
+    color: navy;
+
+}
+
+#endGameP {
+    color: navy;
+    width: 520px;
+    margin-top: 50px;
+    display: inline-block;
+
+}
+
+#userName {
+    font-size: 20px;
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+    font-family: 'Overpass Mono', monospace;
     text-align: center;
     background: rgb(225, 246, 255);
     color: navy;
-    width: 500px;
-    height: 70px;
-    font-size: 75px;
-    margin: 20px auto;
-    vertical-align: middle;
-    padding: 60px;
+    float: left;
+    margin-left: 50px;
+    display: inline-block;
+}
+
+#submit-score {
+    width: 200px;
+    height: 36px;
+    display: inline-block;
+    margin: 0px auto;
+    font-family: 'Slackey', cursive;
+    font-size: 20px;
+    background-color: rgb(21, 218, 208);
+    color: rgb(225, 246, 255);
+    border: 3px solid navy;
+    border-radius: 5px;
+    float: left;
+    margin-left: 15px;
+    margin-top: 1px;
+
 }
 
 h3 {

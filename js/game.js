@@ -5,49 +5,6 @@ var endGameScore = [0];
 
 
 
-//++++++++++++ end game sequence +++++++++++++++++
-
-
-function endGameDataCollection() {
-  var gameP = document.getElementById('scrambleP');
-  
-  gameP.innerHTML = (`Well played! You got a score of ${endGameScore[0]}! Would you like to submit your score and see how well you did compared to others?`);
-
-  createEndGame();
-}
-
-function createEndGame() {
-  var gameSpace = document.getElementById('gameSpace');
-
-  var inputEl = document.createElement('input');
-  inputEl.setAttribute('id', 'userName');
-  inputEl.textContent = '';
-  gameSpace.appendChild(inputEl);
-
-  var submitEl = document.createElement('button');
-  submitEl.setAttribute('id', 'submit-score');
-  submitEl.textContent = 'Submit Score';
-  gameSpace.appendChild(submitEl);
-
-  var pEl = document.createElement('p');
-  pEl.setAttribute('id', 'end-game-alert');
-  pEl.textContent = '';
-  gameSpace.appendChild(pEl);
-
-  gameSpace.addEventListener('submit', handleSubmitScore);
-}
-
-function handleSubmitScore() {
-  event.preventDefault();
-
-  var name = event.target.userName.value;
-  if (name === '') {
-    document.getElementById('end-game-alert').innerHTML = 'Field cannot be empty';
-  } else {
-    endGameScore.unshift(name);
-  }
-  localStorage.setItem('endGameScore', JSON.stringify(endGameScore));
-}
 
 
 // notification on page leave
@@ -91,6 +48,7 @@ function skipWord() {
   subTime();
   roundCount++;
   displayNewWord();
+  
 }
 
 function startGame() {
@@ -102,12 +60,13 @@ function startGame() {
 }
 
 function endGame() {
-  deactivateSubmission();
-  started = false;
   endGameDataCollection();
-  
+  deactivateSubmission();
+  deactivateSkip();
+  started = false;
   //TODO reset/restart button
 }
+
 
 function resetTimer() {
   // disable interval function calls
@@ -246,7 +205,12 @@ function activateSubmission() {
 
 function deactivateSubmission() {
   scrambleSubmission.removeEventListener('click', handleScrambleSubmission);
-  document.getElementById('input').disabled = true;
+  document.getElementById('input').disabled = true;  
+}
+
+function deactivateSkip() {
+  document.getElementById('skipWord').removeEventListener('click', skipWord);
+  document.getElementById('skipWord').disabled = true;  
 }
 
 function forceKeyPressUppercase(e) {
@@ -332,3 +296,49 @@ function calcScore() {
 
 // ++++++++++++++++++ EXECUTABLES +++++++++++++++++++
 
+//++++++++++++ end game sequence +++++++++++++++++
+
+
+function endGameDataCollection() {
+
+  document.getElementById('scrambleP').style.display = 'none';
+  var pEl = document.createElement('p');
+  pEl.setAttribute('id', 'endGameP');
+  pEl.textContent = `Well played! You got a score of ${endGameScore[0]}! Would you like to submit your score and see how well you did compared to others?`;
+  gameSpace.appendChild(pEl);
+
+  createEndGame();
+}
+
+function createEndGame() {
+  var gameSpace = document.getElementById('gameSpace');
+
+  var inputEl = document.createElement('input');
+  inputEl.setAttribute('id', 'userName');
+  inputEl.textContent = '';
+  gameSpace.appendChild(inputEl);
+
+  var submitEl = document.createElement('button');
+  submitEl.setAttribute('id', 'submit-score');
+  submitEl.textContent = 'Submit Score';
+  gameSpace.appendChild(submitEl);
+
+  var pEl = document.createElement('p');
+  pEl.setAttribute('id', 'end-game-alert');
+  pEl.textContent = '';
+  gameSpace.appendChild(pEl);
+
+  gameSpace.addEventListener('submit', handleSubmitScore);
+}
+
+function handleSubmitScore() {
+  event.preventDefault();
+
+  var name = event.target.userName.value;
+  if (name === '') {
+    document.getElementById('end-game-alert').innerHTML = 'Field cannot be empty';
+  } else {
+    endGameScore.unshift(name);
+  }
+  localStorage.setItem('endGameScore', JSON.stringify(endGameScore));
+}
