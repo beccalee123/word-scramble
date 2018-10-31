@@ -2,6 +2,26 @@
 ## A Word Scramble Game with an Oceanic Theme
 A word scramble game by Becca Lee, Brent Woodward, Fletcher LaRue, and Jacob Anderson for our Code Fellows 201d40 final project. This project represents what the team could accomplish after only 3 weeks of learning HTML, CSS and JavaScript.
 
+## About the team
+
+Becca Lee:  
+A particularly employable web devloper learning to program at Code Fellows. 
+GitHub link: https://github.com/beccalee123  
+Twitter link: https://twitter.com/the_becca_lee  
+
+Brent Woodward:  
+A particularly employable web devloper learning to program at Code Fellows.  
+Github: https://github.com/BrentTech
+
+Fletcher LaRue:  
+A particularly employable web devloper learning to program at Code Fellows.  
+Github: https://github.com/asdFletcher
+
+Jacob Anderson:  
+A particularly employable web devloper learning to program at Code Fellows.  
+Github: https://github.com/1anderson2jacob
+
+
 ## Date
 Completed October of 2018.  
 Total time coding: 4 days Monday thru Tursday  
@@ -25,4 +45,20 @@ For best results use Chrome.
 ### Libraries, frameworks and packages
 
 ### Installation
-No installation required, simply navigate to http://www.oceancommotion.fun/
+No installation required, simply navigate to http://www.oceancommotion.fun/  
+
+Or clone this repository and run the files locally by opening Index.html in your web browser.
+
+## Licensing
+
+This project is licensed using the MIT license. For full content of license see the LICENSE file in this repository.
+
+A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+
+Permissions: 
+* Commercial use
+* Modification
+* Distribution
+* Private us
+
+
