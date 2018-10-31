@@ -31,26 +31,28 @@
     </ul>
   </nav>
   <main>
-    <h3>Play Ocean Commotion</h3>
 
     <!-- Timer bar -->
-    <div id="timerBarContainer"><div id="timerBar">Timer bar here</div></div>
+    <div id="timerBarContainer">
+      <div id="timerBar">Timer bar here</div>
+    </div>
     <section>
       <div>
         <p id="scrambleP"></p>
       </div>
+      <div class="flex-container">
+        <div><input id="input" /></div>
+        <div><button id="skipWord">Skip</button></div>
+        <div><button id="scramble-submit">Submit</button></div>
+      </div>
+      <p id="alerts"></p>
       <div>
-        <input id="input"/>
-        
-        <button id="scramble-submit">Submit</button>
-        <button id="skipWord">Skip</button>
-        <p id="alerts"></p>
-        <button id="startGame">Go!</button>
+        <button id="startGame">Start Game!</button>
       </div>
     </section>
   </main>
 
-  <script type="text/javascript" src="../js/wordbank.js"></script> 
+  <script type="text/javascript" src="../js/wordbank.js"></script>
   <script type="text/javascript" src="../js/app.js"></script>
   <script type="text/javascript" src="../js/game.js"></script>
 
