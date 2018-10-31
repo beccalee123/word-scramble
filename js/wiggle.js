@@ -4,10 +4,13 @@ document.getElementById('stop').addEventListener('click', stopAnimate);
 document.getElementById('start').addEventListener('click', startAnimate);
 document.getElementById('wiggle').addEventListener('click', handleWiggleButton);
 document.getElementById('move').addEventListener('click', handleMoveButton);
+document.getElementById('swap').addEventListener('click', function(e){ handleSwapButton(newScramble)});
 
 var animate;
 
 var word = 'test';
+var newScramble = 'sett';
+
 var wordArray = [];
 var UPDATEINTERVAL = 16; //ms
 
@@ -39,29 +42,50 @@ function Letter(letter) {
     this.xDestination;
     this.yDestination;
 
-
-    this.wiggleCount;
     this.wiggling = false;
+    this.wiggleCount;
+
+    this.swapping = false;
+    // this.xSwapInitial;
+    // this.ySwapInitial;
+    // this.xSwapFinal;
+    // this.ySwapFinal;
 
     allLetters.push(this);
 }
 
+Letter.prototype.rand = function(min, max) {
+    // credit https://stackoverflow.com/questions/8611830/javascript-random-positive-or-negative-number
+    var rand = (Math.floor(Math.random()*(max-min))+2) * (Math.random() < 0.5 ? -1 : 1);
+    return rand;
+}
 
 Letter.prototype.wiggle = function() {
-    // console.log(`Wiggle called on ${this.letter}`);
+    // a wiggle is a short move to a random place close by
 
-    var max = 7; // dimensions of the wiggle square
+    var max = 7; 
     var min = 3;
 
-    // a wiggle is a short move to a random place close by
-    // credit https://stackoverflow.com/questions/8611830/javascript-random-positive-or-negative-number
-    var randomX = (Math.floor(Math.random()*(max-min))+2) * (Math.random() < 0.5 ? -1 : 1);
-    // console.log('randomX: ', randomX);
-    var randomY = Math.floor(Math.random()*(max-min))+2 * (Math.random() < 0.5 ? -1 : 1);
-    // console.log('randomY: ', randomY);
+    var randomX = this.rand(min, max);
+    var randomY = this.rand(min, max);
+
+    // confine the random number to be within 10px of the initial position
+    var close = false;
+    while (!close){
+
+        // calculate move distance
+        var xDistFromHome = (this.xPosition + randomX) - this.xInitial;
+        var yDistFromHome = (this.yPosition + randomY) - this.yInitial;
+
+        if (Math.abs(xDistFromHome) < 7 && Math.abs(yDistFromHome) < 7){
+            close = true;
+        } else {
+            randomX = this.rand(min, max);
+            randomY = this.rand(min, max);
+        }
+    }
 
     this.assignMove(this.xPosition + randomX, this.yPosition + randomY);
-
 }
 
 Letter.prototype.assignWiggle = function() {
@@ -82,7 +106,24 @@ Letter.prototype.assignMove = function(endX, endY) {
     this.xDestination = endX;
     this.yDestination = endY;
     
+}
 
+Letter.prototype.assignSwap = function(endX, endY) {
+    console.log(`assignSwap called on ${this.letter}`);
+
+    // this.xSwapInitial = xInitial;
+    // this.ySwapInitial = yInitial;
+    // this.xSwapFinal = endX;
+    // this.ySwapFinal = endY;
+
+    this.swapping = true;
+
+    this.xMoving = true;
+    this.yMoving = true;
+
+    this.xDestination = endX;
+    this.yDestination = endY;
+    
 }
 
 Letter.prototype.draw = function() {
@@ -96,57 +137,71 @@ Letter.prototype.draw = function() {
     // console.log(`draw called on ${this.letter}`);
 }
 
+Letter.prototype.incrementPosition = function() {
+    var xDistance = this.xDestination - this.xPosition;
+    var yDistance = this.yDestination - this.yPosition;
+
+    if (Math.abs(xDistance) > 1 ) {
+        this.xPosition = this.xPosition + this.xSpeed * Math.sign(xDistance);
+    } else {
+        // destination reached
+        this.xMoving = false;
+        this.xPosition = this.xDestination;
+    }
+
+    if (Math.abs(yDistance) > 1 ) {
+        this.yPosition = this.yPosition + this.ySpeed * Math.sign(yDistance);
+    } else {
+        // destination reached
+        this.yMoving = false;
+        this.yPosition = this.yDestination;
+    }
+}
+
+Letter.prototype.incrementWiggle = function(){
+    // decrement wiggles
+    this.wiggleCount--;
+
+    // if it still has more wiggling to do
+    if (this.wiggleCount > 0) {
+        this.wiggle();
+    }
+        
+    // if done wiggling
+    if (this.wiggleCount === 0) {
+        // it is done wiggling
+        this.wiggling = false;
+        this.xMoving = false;
+        this.yMoving = false;
+    }
+        
+    // return home
+    if (this.wiggling === false){
+        this.assignMove(this.xInitial,this.yInitial);
+    }
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// core move logic is the update function
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Letter.prototype.update = function() {
 
-    console.log('here');
+    // if swapping
+    // disable wiggle
+    
+    // if wiggling
+    // finish wiggling and then move
+
     if (this.xMoving || this.yMoving){
         
-        var xDistance = this.xDestination - this.xPosition;
-        var yDistance = this.yDestination - this.yPosition;
-    
+        this.incrementPosition();
 
-        if (Math.abs(xDistance) > 1 ) {
-            this.xPosition = this.xPosition + this.xSpeed * Math.sign(xDistance);
-        } else {
-            // destination reached
-            this.xMoving = false;
-            this.xPosition = this.xDestination;
+        // if stopped and not finished wiggling, then it has completed a wiggle
+        if (this.xMoving === false && this.yMoving === false && this.wiggling){
+            this.incrementWiggle();
         }
 
-        if (Math.abs(yDistance) > 1 ) {
-            this.yPosition = this.yPosition + this.ySpeed * Math.sign(yDistance);
-        } else {
-            // destination reached
-            this.yMoving = false;
-            this.yPosition = this.yDestination;
-        }
-
-        // if not moving at all, and it is wiggling, then it has completed a wiggle
-        var passFail = this.xMoving === false && this.yMoving === false && this.wiggling;
-        if (passFail){
-
-            // decrement wiggles
-            this.wiggleCount--;
-
-            // if it still has more wiggling to do
-            if (this.wiggleCount > 0) {
-                this.wiggle();
-            }
-             
-            // if done wiggling
-            if (this.wiggleCount === 0) {
-                // it is done wiggling
-                this.wiggling = false;
-                this.xMoving = false;
-                this.yMoving = false;
-            }
-              
-            // return home
-            if (this.wiggling === false){
-                this.assignMove(this.xInitial,this.yInitial);
-            }
-            
-        }
+        //
     }
 }
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -163,7 +218,13 @@ for (var i = 0; i < wordArray.length; i++){
 
 
 
+/*
+handle swap button (takes new word)
 
+
+
+
+*/
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~   functions     ~~~~~~~~~
@@ -172,7 +233,7 @@ for (var i = 0; i < wordArray.length; i++){
 function handleWiggleButton() {
     // console.log('wiggle whole word called');
 
-    startAnimate();
+    //startAnimate();
 
     for (var i = 0; i < allLetters.length; i++){
         allLetters[i].assignWiggle();
@@ -195,6 +256,34 @@ function handleMoveButton() {
     }
 }
 
+function handleSwapButton(newScramble) {
+    var newScrambleArray = []
+    for (var i = 0; i < newScramble.length; i++){
+        newScrambleArray[i] = newScramble[i];
+        // console.log('newScrambleArray: ', newScrambleArray);
+    }
+    
+    console.log('newScrambleArray: ', newScrambleArray);
+    // iterate thru the wordArray
+    for (var i = 0; i < wordArray.length; i++){
+
+        // when a letter appears in the newScrambleArray
+        // var newIndex = wordArray.indexOf(newScrambleArray[i]);
+        var newIndex = newScrambleArray.indexOf(wordArray[i]);
+        console.log('wordArray[i]: ', wordArray[i]);
+        console.log('newScrambleArray[i]: ', newScrambleArray[i]);
+        console.log('newIndex: ', newIndex);
+        newScrambleArray[i] = newScramble[i];
+        // console.log('newScrambleArray: ', newScrambleArray);
+    }
+
+    for (var i = 0; i < allLetters.length; i++){
+        newX = 0;
+        newY = allLetters[i].yInitial;
+        allLetters[i].assignSwap(newX, newY);
+    }
+
+}
 
 // call update
 function startAnimate() {
@@ -235,7 +324,7 @@ function renderInitial(){
     var letterSpacing = 25;
 
     var wordTopLeftX = 50;
-    var wordTopLeftY = 20;
+    var wordTopLeftY = 50;
     for (var i = 0; i < allLetters.length; i++){
         // set initial position
         // console.log('wordArray[i].xInitial: ', wordArray[i].xInitial);
