@@ -1,7 +1,8 @@
 'use strict';
 
 // change nav item color
-document.getElementsByTagName('li')[1].style.backgroundColor = 'lightblue';
+console.log('test');
+document.getElementsByTagName('li')[2].style.backgroundColor = 'lightblue';
 
 // High score submitted on game.html
 // submission turned into object via constructor
