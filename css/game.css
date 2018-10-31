@@ -38,13 +38,14 @@ input {
 #end-game-alert {
     color: navy;
     display: inline-block;
-
+    margin-top: 10px;
 }
 
 #endGameP {
     color: navy;
     width: 520px;
     margin-top: 50px;
+    margin-bottom: 10px;
     display: inline-block;
 
 }
