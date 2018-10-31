@@ -1,0 +1,60 @@
+/* ~~~~~~~~~~~~~~~~ */
+/* main content */
+/* ~~~~~~~~~~~~~~~~ */
+
+main p, main li {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  main p {
+    margin: 5px;
+  }
+  
+  main li {
+    text-indent: 0px;
+    list-style: circle;
+    list-style: outside;
+    margin: 15px;
+    margin-left: 50px;
+    
+  }
+  
+  main h2 {
+    font-size: 25px;
+    margin: 8px;
+  }
+  
+  button {
+    margin-top: 15px;
+    margin-left: 10px;
+    width: 200px;
+    height: 75px;
+    font-size: 25px;
+
+    font-family: 'Slackey', cursive;
+    font-size: 20px;
+    background-color: rgb(21, 218, 208);
+    color: rgb(225, 246, 255);
+    border: 3px solid rgb(225, 246, 255);
+    border-radius: 5px;
+  }
+
+  /* 
+width: 200px;
+height: 60px;
+display: block;
+margin: 20px auto;
+font-family: 'Slackey', cursive;
+font-size: 20px;
+background-color: rgb(21, 218, 208);
+color: rgb(225, 246, 255);
+border: 3px solid rgb(225, 246, 255);
+border-radius: 5px; */
+  
+  /* ~~~~~~~~~~~~~~~~ */
+  /* footer */
+  /* ~~~~~~~~~~~~~~~~ */
+  
+  #bottom {
+    height: 100px;
+  }
