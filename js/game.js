@@ -1,6 +1,9 @@
 'use strict';
 
 var roundCount;
+var endGameScore = [0];
+
+
 
 // notification on page leave
 window.addEventListener('beforeunload', function(e) {
@@ -48,13 +51,14 @@ function skipWord() {
 function startGame() {
   startTimer();
   roundCount = 0;
+
   displayNewWord();
   activateSubmission();
 }
 
 function endGame() {
   deactivateSubmission();
-  //report score
+  
   //localStorage setItem score
   //prompt user info
   //reset/restart button
@@ -164,8 +168,10 @@ var handleScrambleSubmission = function(event) {
     } was the correct word - good job!`;
     clearInput();
     addTime();
-    roundCount++;
+   calcScore(); 
+   roundCount++;
     displayNewWord();
+    
     console.log(shuffledList[roundCount]);
     
     //TODO: Add functionality to add to score tally based on number of letters in word
@@ -198,8 +204,6 @@ function deactivateSubmission() {
   scrambleSubmission.removeEventListener('click', handleScrambleSubmission);
   document.getElementById('input').disabled = true;
 }
-
-// forceKeyPressUppercase function sourced from  https://www.the-art-of-web.com/html/input-field-uppercase/
 
 function forceKeyPressUppercase(e) {
   var charInput = e.keyCode;
@@ -275,6 +279,16 @@ function checkAnagram(altWord) {
   } else {
     return false;
   }
+}
+
+function calcScore() {
+  console.log(shuffledList[roundCount].length);
+  endGameScore[0] += shuffledList[roundCount].length;
+}
+
+function collectUsername() {
+  var name = 'dummy name';
+  endGameScore.unshift(name);
 }
 
 // ++++++++++++++++++ EXECUTABLES +++++++++++++++++++
