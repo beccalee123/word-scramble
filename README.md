@@ -31,6 +31,9 @@ Some project layout was completed during the prior weekend
 ## Project scope
 Our game (Ocean Theme) will present the user with a word, randomly selected from themed word bank of at least 100 words, that has been randomly shuffled. They will have to unscramble the word and input the correct answer in the submission field. The game will have an overall time limit of 5 minutes, the game at start will have 2 minutes on the clock,  and when the correct answer is given additional time will be awarded up to the maximum game time. The timer will be represented graphically. Upon completion of the game, a score will be presented and the user will be given the opportunity to submit their score to the High-Score page. Navigation buttons will change color to visually indicate the page you are on. There will be a skip button to allow for passing of words, but at a penalty. In addition if an accurate word is guessed, but it doesn’t fit the theme, the user will be notified.
 
+## Special Thanks
+Special thanks to https://www.the-art-of-web.com/html/input-field-uppercase/ for the forceKeyPressUppercase function we sourced for our text input field. It helped us keep our game as user friendly as possible and improved gameplay.  
+
 ## Version
 Version 1.0.0
 
