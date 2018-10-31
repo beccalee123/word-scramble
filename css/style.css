@@ -1,14 +1,16 @@
-* , h1, h2, h3, h4, body, main, button, p, nav, header, ul, li{
-  border: 1px solid black;
+* , h1, h2, h3, h4, body, main, button, p, nav, header, ul, li, section{
+  /* border: 1px solid black; */
 }
 
-body {
-  position: relative;
-  background-color: rgb(51, 134, 167);
-  color: rgb(225, 246, 255);
-  font-family: 'Hind Siliguri', sans-serif;
-  margin-left: 150px;
-  /* width: 700px; */
+/* ~~~~~~~~~~~~~~~~ */
+/* header */
+/* ~~~~~~~~~~~~~~~~ */
+
+header {
+  
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 h1 {
@@ -17,8 +19,13 @@ h1 {
   text-align: center;
   text-shadow: 4px 4px rgb(21, 218, 208);
   margin-bottom: 0px;
-  height: 120px;
+ 
 }
+
+h2 {
+  font-size: 28px;
+}
+
 
 h3 {
   font-family: 'Overpass Mono', monospace;
@@ -28,29 +35,37 @@ h4 {
   color: rgb(19, 253, 242);
 }
 
-header, main, body {
-  width: 80%;
-  min-width: 500px;
-  max-width: 960px;
+/* ~~~~~~~~~~~~~~~~ */
+/* body */
+/* ~~~~~~~~~~~~~~~~ */
+
+body {
+  background-color: rgb(51, 134, 167);
+  color: rgb(225, 246, 255);
+  font-family: 'Hind Siliguri', sans-serif;
+  margin: 0 auto;
 }
 
-
-header {
-  height: 145px;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 40px;
+section {
+  margin: 0 auto;
 }
 
 nav {
+  float: left;
+  text-align: center;
+  display: inline-block;
   background-color: rgb(52, 136, 136); 
-  width: 125px;
-  margin-top: 140px;
-  /* margin-right: 40px; */
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  /* margin-left: -155px; */
+  width: 125px;  
+}
+
+main {
+  margin-left: 165px;
+}
+
+body {
+  width: 80%;
+  min-width: 500px;
+  max-width: 960px;
 }
 
 nav li {
@@ -60,10 +75,48 @@ nav li {
   vertical-align: center;
   padding: 20px 0px;
   background: white;
-  /* line-height: 60px; */
-  /* height: 60px; */
 }
 
-main, header{
+/* ~~~~~~~~~~~~~~~~ */
+/* main content */
+/* ~~~~~~~~~~~~~~~~ */
+
+main p, main li {
+  font-size: 16px;
+  line-height: 24px;
+}
+main p {
+  margin: 5px;
+}
+
+main li {
+  text-indent: 0px;
+  list-style: circle;
+  list-style: outside;
+  margin: 15px;
+  margin-left: 50px;
+  
+}
+
+main h2 {
+  font-size: 25px;
+  margin: 8px;
+}
+
+button {
+  /* text-align: center; */
+  margin-top: 15px;
+  margin-left: 10px;
+  width: 150px;
+  height: 50px;
+  font-size: 25px;
   /* margin: 0px auto; */
+}
+
+/* ~~~~~~~~~~~~~~~~ */
+/* footer */
+/* ~~~~~~~~~~~~~~~~ */
+
+#bottom {
+  height: 100px;
 }
