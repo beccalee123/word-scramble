@@ -1,19 +1,96 @@
-
-#timerBarContainer {
-    position: relative;
-    display: inline-block;
-    background-color: rgb(52, 85, 52);
-    height: 30px;
-    /* width: 600px; */ /*max width of bar is 600px*/
-    width: 240px;
-    margin-left: 30px; 
-}
-
 #timerBar {
-    position: absolute;
-    top: 3px;
-    left: 0px;
-    background-color: lightgreen;
+    display: block;
+    background-image: linear-gradient(rgb(37, 207, 37), rgb(18, 105, 18));
     height: 24px;
     text-align: left;
+    box-shadow: 3px 3px black;
+    margin: 20px auto;
+    border: 2px solid black;
+}
+
+input {
+    width: 430px;
+    height: 100px;
+    font-size: 50px;
+    font-family: 'Overpass Mono', monospace;
+    text-align: center;
+    background: rgb(225, 246, 255);
+    color: navy;
+}
+
+#scrambleP {
+    text-align: center;
+    background: rgb(225, 246, 255);
+    color: navy;
+    width: 500px;
+    height: 70px;
+    font-size: 75px;
+    margin: 20px auto;
+    vertical-align: middle;
+    padding: 60px;
+}
+
+h3 {
+    font-family: 'Slackey', cursive;
+    font-size: 40px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 40px;
+}
+
+#startGame {
+    width: 200px;
+    height: 60px;
+    display: block;
+    margin: 20px auto;
+    font-family: 'Slackey', cursive;
+    font-size: 20px;
+    background-color: rgb(21, 218, 208);
+    color: rgb(225, 246, 255);
+    border: 3px solid rgb(225, 246, 255);
+    border-radius: 5px;
+}
+
+#alerts {
+    text-align: center;
+    margin: 15px;
+    color: rgb(21, 218, 208);
+}
+
+#scramble-submit {
+    height: 103px;
+    width: 90px;
+    font-size: 16px;
+    font-family: 'Slackey', cursive;
+    background-color: rgb(21, 218, 208);
+    color: rgb(225, 246, 255);
+    border: 3px solid rgb(225, 246, 255);
+    border-radius: 5px;
+    margin-top: 1px;
+    text-align: center;
+}
+
+#skipWord {
+    height: 103px;
+    width: 90px;
+    font-size: 16px;
+    font-family: 'Slackey', cursive;
+    background-color: rgb(21, 218, 208);
+    color: rgb(225, 246, 255);
+    border: 3px solid rgb(225, 246, 255);
+    border-radius: 5px;
+    margin: 1px 3px 0px 3px;
+    text-align: center;
+}
+
+#startGame:hover, #scramble-submit:hover, #skipWord:hover {
+    color: navy;
+    border: 3px solid navy;
+    transition: .5s;
+}
+
+.flex-container {
+    display: flex;
+    width: 620px;
+    margin: 0px auto;
 }
