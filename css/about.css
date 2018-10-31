@@ -48,10 +48,11 @@ div h2 {
 div a {
   text-decoration-line: none;
   font-size: 2em;
-
+  border-right: 10px;
 }
-div a img {
-  size:50%;
+div p a img {
+  height: auto;
+  width: 20px;
 }
 div p:first-child {
 margin-bottom: 10px;
