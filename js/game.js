@@ -5,6 +5,51 @@ var endGameScore = [0];
 
 
 
+//++++++++++++ end game sequence +++++++++++++++++
+
+
+function endGameDataCollection() {
+  var gameP = document.getElementById('scrambleP');
+  
+  gameP.innerHTML = (`Well played! You got a score of ${endGameScore[0]}! Would you like to submit your score and see how well you did compared to others?`);
+
+  createEndGame();
+}
+
+function createEndGame() {
+  var gameSpace = document.getElementById('gameSpace');
+
+  var inputEl = document.createElement('input');
+  inputEl.setAttribute('id', 'userName');
+  inputEl.textContent = '';
+  gameSpace.appendChild(inputEl);
+
+  var submitEl = document.createElement('button');
+  submitEl.setAttribute('id', 'submit-score');
+  submitEl.textContent = 'Submit Score';
+  gameSpace.appendChild(submitEl);
+
+  var pEl = document.createElement('p');
+  pEl.setAttribute('id', 'end-game-alert');
+  pEl.textContent = '';
+  gameSpace.appendChild(pEl);
+
+  gameSpace.addEventListener('submit', handleSubmitScore);
+}
+
+function handleSubmitScore() {
+  event.preventDefault();
+
+  var name = event.target.userName.value;
+  if (name === '') {
+    document.getElementById('end-game-alert').innerHTML = 'Field cannot be empty';
+  } else {
+    endGameScore.unshift(name);
+  }
+  localStorage.setItem('endGameScore', JSON.stringify(endGameScore));
+}
+
+
 // notification on page leave
 window.addEventListener('beforeunload', function(e) {
   return 'dummy text';
@@ -58,10 +103,10 @@ function startGame() {
 
 function endGame() {
   deactivateSubmission();
+  started = false;
+  endGameDataCollection();
   
-  //localStorage setItem score
-  //prompt user info
-  //reset/restart button
+  //TODO reset/restart button
 }
 
 function resetTimer() {
@@ -168,13 +213,12 @@ var handleScrambleSubmission = function(event) {
     } was the correct word - good job!`;
     clearInput();
     addTime();
-   calcScore(); 
-   roundCount++;
+    calcScore(); 
+    roundCount++;
     displayNewWord();
     
     console.log(shuffledList[roundCount]);
     
-    //TODO: Add functionality to add to score tally based on number of letters in word
   } else if (checkAnagram(input.value)) {
     document.getElementById('alerts').innerHTML = `${
       input.value
@@ -284,11 +328,6 @@ function checkAnagram(altWord) {
 function calcScore() {
   console.log(shuffledList[roundCount].length);
   endGameScore[0] += shuffledList[roundCount].length;
-}
-
-function collectUsername() {
-  var name = 'dummy name';
-  endGameScore.unshift(name);
 }
 
 // ++++++++++++++++++ EXECUTABLES +++++++++++++++++++
