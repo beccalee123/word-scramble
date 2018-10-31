@@ -37,6 +37,7 @@ input {
 
 #end-game-alert {
     color: navy;
+    display: inline-block;
 
 }
 

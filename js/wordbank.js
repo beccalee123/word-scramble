@@ -5,6 +5,6 @@ var  wordList = [ 'abalone', 'adriatic', 'adrift', 'aegean', 'albacore', 'algae'
 ];
 
 var anagramList = [
-  'galea', 'archon', 'tantalic', 'allot', 'balancer', 'bota', 'calm', 'carol', 'carb', 'unfolder', 'regroup', 'bolster', 'emanate', 'airman', 'free', 'arco', 'rotte', 'torte', 'toter', 'storey', 'sullage', 'ales', 'anisole', 'pengos', 'quids', 'straying', 'namitus', 'aquavit', 'wheal', 'rancho', 'claro', 'bolters', 'enemata', 'remain', 'fere', 'toyers', 'ullages', 'lase', 'randies', 'sandier', 'harks', 'diet', 'dite', 'edit', 'tied', 'piloted', 'aunt', 'leas'
+  'galea', 'archon', 'tantalic', 'allot', 'balancer', 'bota', 'calm', 'carol', 'carb', 'unfolder', 'regroup', 'bolster', 'emanate', 'airman', 'free', 'arco', 'rotte', 'torte', 'toter', 'storey', 'sullage', 'ales', 'anisole', 'pengos', 'quids', 'straying', 'namitus', 'aquavit', 'wheal', 'rancho', 'claro', 'bolters', 'enemata', 'remain', 'fere', 'toyers', 'ullages', 'lase', 'randies', 'sandier', 'harks', 'diet', 'dite', 'edit', 'tied', 'piloted', 'aunt', 'leas', 'sale'
 ];
 
