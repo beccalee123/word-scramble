@@ -1,36 +1,15 @@
 section {
   min-width: 600px;
-
 }
+
 div {
-  /* width: auto; */
   height: 50%;
-  /* max-width: 300; */
   width: 48%;
   min-width: 250px;
   max-height: 200;
   margin-right: 10px;
   margin-bottom: 10px;
   float: left;
-  /* float: left; */
-  /* overflow: auto; */
-}
-#about1 {
-  /* float: left; */
-  /* background-color: black; */
-}
-
-#about2 {
-  /* background-color: orange; */
-}
-
-#about3 {
-  /* float: left; */
-  /* background-color: green; */
-}
-
-#about4 {
-  /* background-color: red; */
 }
 
 div img {
@@ -41,19 +20,19 @@ div img {
 
 div h2 {
   font-family: 'Slackey', cursive;
-  /* font-size:100%; */
-  /* font-size:auto; */
-
 }
+
 div a {
   text-decoration-line: none;
   font-size: 2em;
   border-right: 10px;
 }
+
 div p a img {
   height: auto;
   width: 20px;
 }
+
 div p:first-child {
-margin-bottom: 10px;
+  margin-bottom: 10px;
 }
