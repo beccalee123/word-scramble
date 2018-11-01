@@ -4,12 +4,12 @@ document.getElementById('stop').addEventListener('click', stopAnimate);
 document.getElementById('start').addEventListener('click', startAnimate);
 document.getElementById('wiggle').addEventListener('click', handleWiggleButton);
 document.getElementById('move').addEventListener('click', handleMoveButton);
-document.getElementById('swap').addEventListener('click', function(e){ handleSwapButton(newScramble)});
+document.getElementById('swap').addEventListener('click', handleSwapButton);
 
 var animate;
 
 var word = 'test';
-var newScramble = 'sett';
+// var newScramble = 'etts';
 
 var wordArray = [];
 var UPDATEINTERVAL = 16; //ms
@@ -248,8 +248,22 @@ function handleMoveButton() {
     }
 }
 
+function handleSwapButton(){
+    console.log('handle swap button pressed');
+    // get current word
+    var currentWord = word;
+    console.log('currentWord is: ', currentWord);
+
+    // scramble
+    var scramble = scrambleWord(currentWord, currentWord);
+    console.log('scramble is: ', scramble);
+
+    // initiate swap
+    initiateSwap(scramble);
+}
+
 // take a swap command and convert it into a move command for each letter
-function handleSwapButton(newScramble) {
+function initiateSwap(newScramble) {
     var newScrambleArray = []
     for (var i = 0; i < newScramble.length; i++){
         newScrambleArray[i] = newScramble[i];
@@ -381,6 +395,94 @@ function renderInitial(){
 
 // single call to display the letters in their initial position
 renderInitial();
+
+
+
+
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~ scramble word ~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// takes a string, and returns a string that is scrambled
+// string will not be equal to the original or the forbidden word
+function scrambleWord(inputWord, forbiddenWord){
+    
+    if (inputWord.length !== forbiddenWord.length){
+        console.log('serious issues');
+    }
+
+    var outputWord = '';
+    var outputWordArray = [];
+
+    // convert to an array
+    var inputWordArray = [];
+    for (var i = 0; i < inputWord.length; i++){
+        inputWordArray[i] = inputWord[i];
+    }
+
+    var count = 0;
+
+    var matchesInputWord = true;
+    var matchesForbiddenWord = true;
+    while (inputWordArray.length > 0 && matchesInputWord && matchesForbiddenWord){
+
+        // fill the array
+        for (var i = 0; i < inputWord.length; i++){
+            // guess a random array index
+            var randIndex = calcRand(inputWordArray.length);
+            console.log('randIndex: ', randIndex);
+
+            // save the letter
+            var currentLetter = inputWordArray[randIndex];
+
+            // and remove it from the input array
+            inputWordArray.splice(randIndex,1);
+
+            // put it into the new array
+            outputWordArray[i] = currentLetter;
+            console.log('outputWordArray[i]: ', outputWordArray[i]);
+        }
+
+        // check for random output matches input word
+        for (var i = 0; i < outputWordArray.length; i++){
+            if (outputWordArray[i] !== inputWord[i]){
+                matchesInputWord = false;
+            }
+        }
+
+        // check for random output matches input word
+        for (var i = 0; i < outputWordArray.length; i++){
+            if (outputWordArray[i] !== inputWord[i]){
+                matchesForbiddenWord = false;
+            }
+        }
+    }
+
+    console.log('inputWordArray: ', inputWordArray);
+    console.log('outputWordArray: ', outputWordArray);
+
+    // convert the array into a string
+    for (var i = 0; i < outputWordArray.length; i++){
+        outputWord += outputWordArray[i];
+    }
+    console.log('outputWord: ', outputWord);
+    return outputWord;
+}
+
+// returns random integer between 0 thru max-1
+// pass word length if scrambling a word
+function calcRand(max) {
+
+    var randomInteger = Math.floor(Math.random()*max);;
+
+    return randomInteger;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
