@@ -9,12 +9,13 @@ window.addEventListener('beforeunload', function (e) {
   return 'dummy text';
 });
 
+
 // change nav item color
 document.getElementsByTagName('li')[1].classList.add('selectedPage')
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 document.getElementById('startGame').addEventListener('click', startGame);
-document.getElementById('skipWord').addEventListener('click', skipWord);
+//document.getElementById('skipWord').addEventListener('click', skipWord);
 
 // document.getElementById('addTime').addEventListener('click', addTime);
 // document.getElementById('resetTimer').addEventListener('click', resetTimer);
@@ -40,9 +41,7 @@ var bonusTime = 0; // accumulated bonus time in ms
 var penaltyTime = 0; // accumulated time penalty
 var started = false; // tracks whether the game is started for initial render
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//              timer functions
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 function skipWord() {
   clearInput();
@@ -50,6 +49,11 @@ function skipWord() {
   roundCount++;
   displayNewWord();
   document.getElementById('alerts').innerHTML = `Looks like you had a whale of a time with that one. The correct answer was ${shuffledList[roundCount - 1].toUpperCase()}.`;
+  resetFocus();
+}
+
+function resetFocus() {
+  document.getElementById('input').focus();  
 }
 
 function startGame() {
@@ -57,8 +61,11 @@ function startGame() {
   roundCount = 0;
   displayNewWord();
   activateSubmission();
-  hide(startGameButton);
-
+  createScoreCounter();
+  resetFocus();
+  activateSkip();
+  hide(startGameButton, 'none');
+  activateRestart();
 }
 
 function endGame() {
@@ -76,12 +83,30 @@ function endGameStyling() {
   document.getElementById('timerBar').style.visibility = 'hidden';
 }
 
-function hide(element) {
-  element.style.display = 'none';
+function hide(element, hiddenOrNone) {
+  if (hiddenOrNone === 'hidden') {
+    element.style.visibility = 'hidden';
+  } else if (hiddenOrNone === 'none') {
+    element.style.display = 'none';
+  } else {
+    console.log('wrong hiddenOrNone argument')
+  }
+  
 }
 
+function unHide(element) {
+  element.style.visibility = 'visible';
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//              timer functions
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function resetTimer() {
   // disable interval function calls
+  timeLeft = initialTimeAllowed; // remaining time
+  bonusTime = 0; // accumulated bonus time in ms
+  penaltyTime = 0; // accumulated time penalty
+
   clearInterval(timer);
   started = false;
   bonusTime = 0;
@@ -179,17 +204,20 @@ var handleScrambleSubmission = function (event) {
     clearInput();
     addTime();
     calcScore();
+    updateScoreCounter();
     roundCount++;
     displayNewWord();
-
+    resetFocus();
     console.log(shuffledList[roundCount]);
 
   } else if (checkAnagram(input.value)) {
     document.getElementById('alerts').innerHTML = `We know you're feeling salty that we didn't accept ${input.value}. Try something with an Oceanic theme.`;
     clearInput();
+    resetFocus();
   } else if (input.value !== shuffledList[roundCount].toUpperCase()) {
     document.getElementById('alerts').innerHTML = `Nice try, but ${input.value} didn't seal the deal.`;
     clearInput();
+    resetFocus();
   }
 };
 
@@ -208,6 +236,10 @@ function activateSubmission() {
 function deactivateSubmission() {
   scrambleSubmission.removeEventListener('click', handleScrambleSubmission);
   document.getElementById('input').disabled = true;
+}
+
+function activateSkip(){
+  document.getElementById('skipWord').addEventListener('click', skipWord);
 }
 
 function deactivateSkip() {
@@ -292,8 +324,24 @@ function checkAnagram(altWord) {
 }
 
 function calcScore() {
-  console.log(shuffledList[roundCount].length);
   endGameScore[0] += shuffledList[roundCount].length;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//              Restart button
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function restartGame() {
+  var restartResult = window.confirm('Are you sure you want to restart the game and lose your current score?');
+  if (restartResult === true){
+    window.location.href = 'game.html';
+  }
+}
+
+function activateRestart() {
+  var restartGameButton = document.getElementById('restartGame');
+  restartGameButton.addEventListener('click', restartGame);
+  unHide(document.getElementById('restartGame'));
 }
 
 // ++++++++++++++++++ EXECUTABLES +++++++++++++++++++
@@ -317,6 +365,7 @@ function createEndGame() {
   var inputEl = document.createElement('input');
   inputEl.setAttribute('id', 'userName');
   inputEl.setAttribute('name', 'userName');
+  inputEl.setAttribute('maxlength', '10');
   inputEl.textContent = '';
   gameSpace.appendChild(inputEl);
 
@@ -357,4 +406,17 @@ function handleSubmitScore(event) {
     localStorage.setItem('endGameScore', JSON.stringify(endGameScore));
     window.location.href = 'score.html';
   }
+}
+
+function createScoreCounter() {
+  var gameSpace = document.getElementById('gameSpace');
+
+  var h2El = document.createElement('h2');
+  h2El.setAttribute('id', 'current-score');
+  h2El.textContent = endGameScore[0];
+  gameSpace.appendChild(h2El);
+}
+
+function updateScoreCounter() {
+  document.getElementById('current-score').innerHTML = endGameScore[0];
 }
