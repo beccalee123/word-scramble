@@ -51,6 +51,11 @@ function skipWord() {
   document.getElementById('alerts').innerHTML = `${
     shuffledList[roundCount-1].toUpperCase()
   } was the word you were looking for there.`;
+  resetFocus();
+}
+
+function resetFocus() {
+  document.getElementById('input').focus();  
 }
 
 function startGame() {
@@ -58,10 +63,11 @@ function startGame() {
   roundCount = 0;
   displayNewWord();
   activateSubmission();
+  createScoreCounter();
+  resetFocus();
   activateSkip();
   hide(startGameButton, 'none');
   activateRestart();
-
 }
 
 function endGame() {
@@ -201,21 +207,19 @@ var handleScrambleSubmission = function(event) {
     clearInput();
     addTime();
     calcScore(); 
+    updateScoreCounter();
     roundCount++;
     displayNewWord();
-    
-    console.log(shuffledList[roundCount]);
+    resetFocus();
     
   } else if (checkAnagram(input.value)) {
-    document.getElementById('alerts').innerHTML = `${
-      input.value
-    } is a real word, but we're looking for something with an Ocean theme.`;
+    document.getElementById('alerts').innerHTML = `${input.value} is a real word, but we're looking for something with an Ocean theme.`;
     clearInput();
+    resetFocus();
   } else if (input.value !== shuffledList[roundCount].toUpperCase()) {
-    document.getElementById('alerts').innerHTML = `Nice try, but ${
-      input.value
-    } is not correct. Try again!`;
+    document.getElementById('alerts').innerHTML = `Nice try, but ${input.value} is not correct. Try again!`;
     clearInput();
+    resetFocus();
   }
 };
 
@@ -322,7 +326,6 @@ function checkAnagram(altWord) {
 }
 
 function calcScore() {
-  console.log(shuffledList[roundCount].length);
   endGameScore[0] += shuffledList[roundCount].length;
 }
 
@@ -364,6 +367,7 @@ function createEndGame() {
   var inputEl = document.createElement('input');
   inputEl.setAttribute('id', 'userName');
   inputEl.setAttribute('name', 'userName');
+  inputEl.setAttribute('maxlength', '10');
   inputEl.textContent = '';
   gameSpace.appendChild(inputEl);
 
@@ -404,4 +408,17 @@ function handleSubmitScore(event) {
     localStorage.setItem('endGameScore', JSON.stringify(endGameScore));
     window.location.href = 'score.html';
   }
+}
+
+function createScoreCounter() {
+  var gameSpace = document.getElementById('gameSpace');
+
+  var h2El = document.createElement('h2');
+  h2El.setAttribute('id', 'current-score');
+  h2El.textContent = endGameScore[0];
+  gameSpace.appendChild(h2El);
+}
+
+function updateScoreCounter() {
+  document.getElementById('current-score').innerHTML = endGameScore[0];
 }
