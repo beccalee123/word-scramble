@@ -112,7 +112,7 @@ Letter.prototype.assignSwap = function(endX, endY) {
 Letter.prototype.draw = function() {
 
     // set the letter color
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "navy";
 
     // draw the letter at current position
     ctx.fillText(`${this.letter}`, this.xPosition, this.yPosition);
@@ -332,7 +332,7 @@ function drawCanvas() {
 // clear canvas to white background , called constantly
 // TODO: confirm with the group on whether we want a pure white background or not ~~~~~~~~~~~~~~~
 function clearCanvas() {
-    ctx.fillStyle = "lightblue";
+    ctx.fillStyle = "rgb(225, 246, 255)";
     ctx.fillRect(0,0,canvasEl.width,canvasEl.height);
 }
 
