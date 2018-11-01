@@ -110,7 +110,9 @@ Letter.prototype.assignMove = function(endX, endY) {
 
 Letter.prototype.assignSwap = function(endX, endY) {
     console.log(`assignSwap called on ${this.letter}`);
-
+    
+    console.log(`endX is ${endX}, endY is ${endY}`);
+    console.log(`x ${this.letter}`);
     // this.xSwapInitial = xInitial;
     // this.ySwapInitial = yInitial;
     // this.xSwapFinal = endX;
@@ -216,16 +218,6 @@ for (var i = 0; i < wordArray.length; i++){
 }
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-/*
-handle swap button (takes new word)
-
-
-
-
-*/
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~   functions     ~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -256,6 +248,7 @@ function handleMoveButton() {
     }
 }
 
+// take a swap command and convert it into a move command for each letter
 function handleSwapButton(newScramble) {
     var newScrambleArray = []
     for (var i = 0; i < newScramble.length; i++){
@@ -263,26 +256,66 @@ function handleSwapButton(newScramble) {
         // console.log('newScrambleArray: ', newScrambleArray);
     }
     
-    console.log('newScrambleArray: ', newScrambleArray);
-    // iterate thru the wordArray
+    // iterate thru the wordArray and generate new index positions
+    var newIndexes = [];
     for (var i = 0; i < wordArray.length; i++){
 
-        // when a letter appears in the newScrambleArray
-        // keep note of its index
-        var newIndex = newScrambleArray.indexOf(wordArray[i]);
-        console.log('wordArray[i]: ', wordArray[i]);
-        console.log('newScrambleArray[i]: ', newScrambleArray[i]);
-        console.log('newIndex: ', newIndex);
-        // newScrambleArray[i] = newScramble[i];
-        // console.log('newScrambleArray: ', newScrambleArray);
-    }
+        // find the index of the letter in the new word
+        var currentLetter = wordArray[i];
 
+        // newIndex is the index of the current letter in the new array
+        var newIndex = newScrambleArray.indexOf(currentLetter);
+
+        // save the new index in the array that keeps track of new positions
+        newIndexes[i] = newIndex;
+
+        // remove instance of that letter, -1 will never be in any letter
+        // because indexOf returns the first instance of the thing in the array
+        newScrambleArray[newIndex] = -1;
+    }
+    
+    console.log(wordArray, 'wordArray');
+    console.log(newIndexes, 'newIndexes');
+
+    // generate new X Y positions
+    var xCoords = generateXCoordinates(newScramble.length);
+
+    // assign moves to new X Y positions
     for (var i = 0; i < allLetters.length; i++){
-        newX = 0;
-        newY = allLetters[i].yInitial;
+
+        // this is where the magic happens
+        var newX = xCoords[newIndexes[i]];
+
+        // y doesn't ever change
+        var newY = allLetters[i].yInitial;
+
+        // command the move
         allLetters[i].assignSwap(newX, newY);
     }
 
+}
+
+// given a word length, returns an array of canvas-centered,
+// evenly spaced X coordinates
+function generateXCoordinates(numLetters){
+    
+    
+    var coordArray = [];
+    var canvasWidth = document.getElementsByTagName('canvas')[0].width;
+    var letterSpacing = 25;
+    var letterWidth = 15;
+    var spacing = letterSpacing + letterWidth;
+    var wordLength = (spacing * numLetters) - letterSpacing;
+
+    // word start X
+    var wordStartX = (canvasWidth / 2) - (wordLength / 2)
+
+    // calculate word positions and fill array
+    for (var i = 0; i < numLetters; i++){
+        coordArray[i] = wordStartX + spacing * i;
+    }
+    console.log ('coordArray: ', coordArray);
+    return coordArray;
 }
 
 // call update
@@ -317,29 +350,28 @@ function drawCanvas() {
 }
 
 
-
 // call this function to render the letters initially
 function renderInitial(){
-    var numLetters = wordArray.length;
-    var letterSpacing = 25;
 
-    var wordTopLeftX = 50;
-    var wordTopLeftY = 50;
+    // canvas height
+    var canvasHeight = document.getElementsByTagName('canvas')[0].height;
+
+    // Y is about the middle of the canvas
+    var wordY = canvasHeight/2 + 8;
+
+    // get X coords
+    var letterXCoordinates = generateXCoordinates(wordArray.length);
+
     for (var i = 0; i < allLetters.length; i++){
-        // set initial position
-        // console.log('wordArray[i].xInitial: ', wordArray[i].xInitial);
-        // console.log('wordTopLeftX + letterSpacing * i: ', wordTopLeftX + letterSpacing * i);
-        var startX = wordTopLeftX + letterSpacing * i;
-        var startY = wordTopLeftY;
-        
-        // set X start position on new word
-        allLetters[i].xInitial = startX;
-        allLetters[i].xPosition = startX;
-        // console.log('wordArray[i].xInitial: ', wordArray[i].xInitial);
 
-        // set Y start position on new word
-        allLetters[i].yInitial = startY;
-        allLetters[i].yPosition = startY;
+        // set initial position
+        allLetters[i].xInitial = letterXCoordinates[i];
+        allLetters[i].yInitial = wordY;
+
+        // immediately set x and y position to initial positions
+        allLetters[i].xPosition = allLetters[i].xInitial;
+        allLetters[i].yPosition = allLetters[i].yInitial;
+
         allLetters[i].draw();
     }
 }

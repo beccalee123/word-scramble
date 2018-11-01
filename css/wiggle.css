@@ -8,17 +8,3 @@ li {
     display: inline-block;
     font-family: monospace;
 }
-
-#word-container{
-    position: relative;
-    width: 400px;
-    height: 100px;
-    text-align: center;
-
-}
-
-#word-container ul{
-    position: absolute;
-    top: 50px;
-    left: 100px; 
-}
