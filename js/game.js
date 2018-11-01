@@ -136,9 +136,8 @@ function renderTimer() {
 
   // time bar
   document.getElementById("timerBar").style.width = `${(timeLeft /
-    maxTimeAllowed) *
-    600}px`;
-  document.getElementById("timerBar").textContent = `${timeLeft / 1000}`;
+    maxTimeAllowed) * 600}px`;
+  // document.getElementById("timerBar").textContent = `${timeLeft / 1000}`;
 }
 
 renderTimer();
