@@ -14,7 +14,7 @@ document.getElementsByTagName('li')[1].classList.add('selectedPage')
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 document.getElementById('startGame').addEventListener('click', startGame);
-document.getElementById('skipWord').addEventListener('click', skipWord);
+//document.getElementById('skipWord').addEventListener('click', skipWord);
 
 // document.getElementById('addTime').addEventListener('click', addTime);
 // document.getElementById('resetTimer').addEventListener('click', resetTimer);
@@ -59,6 +59,7 @@ function startGame() {
   roundCount = 0;
   displayNewWord();
   activateSubmission();
+  activateSkip();
   hide(startGameButton);
 
 }
@@ -215,6 +216,10 @@ function activateSubmission() {
 function deactivateSubmission() {
   scrambleSubmission.removeEventListener('click', handleScrambleSubmission);
   document.getElementById('input').disabled = true;  
+}
+
+function activateSkip(){
+  document.getElementById('skipWord').addEventListener('click', skipWord);
 }
 
 function deactivateSkip() {
