@@ -1,11 +1,11 @@
 #timerBar {
     display: block;
     background-image: linear-gradient(rgb(37, 207, 37), rgb(18, 105, 18));
-    height: 24px;
+    height: 18px;
     text-align: left;
-    box-shadow: 3px 3px black;
+    box-shadow: 2px 2px navy;
     margin: 20px auto;
-    border: 2px solid black;
+    border: 1px solid navy;
 }
 
 input {
@@ -20,7 +20,6 @@ input {
 }
 
 #scrambleP {
-    /* text-align: center; */
     color: navy;
     font-size: 75px;
     margin-top: 60px;
@@ -30,7 +29,8 @@ input {
 
 #gameSpace {
     background: rgb(225, 246, 255);
-    width: 620px;
+    border: 3px solid rgb(225, 246, 255);
+    width: 614px;
     height: 190px;
     margin: 20px auto;
     text-align: center;
@@ -76,7 +76,7 @@ input {
     font-size: 20px;
     background-color: rgb(21, 218, 208);
     color: rgb(225, 246, 255);
-    border: 3px solid navy;
+    border: 3px solid rgb(225, 246, 255);
     border-radius: 5px;
     float: left;
     margin-left: 15px;
@@ -137,7 +137,7 @@ h3 {
     text-align: center;
 }
 
-#startGame:hover, #scramble-submit:hover, #skipWord:hover {
+#startGame:hover, #scramble-submit:hover, #skipWord:hover, #submit-score:hover {
     color: navy;
     border: 3px solid navy;
     transition: .5s;
