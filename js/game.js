@@ -39,7 +39,7 @@ var started = false; // tracks whether the game is started for initial render
 
 function shuffleLetters() {
   if (started){
-    console.log('beginning swap');
+    // console.log('beginning swap');
     handleSwapButton();
   }
   
@@ -253,9 +253,10 @@ var handleScrambleSubmission = function (event) {
     calcScore();
     updateScoreCounter();
     roundCount++;
-    displayNewWord();
+    currentWordScramble = scrambledWord(roundCount).toUpperCase();
+    initializeCanvasWithANewWord(currentWordScramble);
     resetFocus();
-    console.log(shuffledList[roundCount]);
+    // console.log(shuffledList[roundCount]);
 
   } else if (checkAnagram(input.value)) {
     handleWiggleButton(); // add wiggle
@@ -296,6 +297,12 @@ function deactivateSkip() {
   document.getElementById('skipWord').removeEventListener('click', skipWord);
   document.getElementById('skipWord').disabled = true;
 }
+
+document.onkeydown = function (e) {
+  if (e.which === 39) {
+    skipWord();
+  }
+};
 
 function forceKeyPressUppercase(e) {
   var charInput = e.keyCode;
