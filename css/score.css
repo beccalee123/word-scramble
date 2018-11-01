@@ -1,13 +1,84 @@
 * , h1, h2, h3, h4, body, main, button, p, nav, header, ul, li, section, td, tr, th{
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
-
-td {
-  padding: 5px;
+td, tr, th {
+  color: rgb(46, 46, 46);
 }
 
 h3 {
+  font-family: 'Slackey', cursive;
   font-size: 30px;
   margin-bottom: 20px;
+}
+
+div {
+  padding: 10px;
+  display: inline-block;
+  height: 400px;
+  overflow: auto;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  background-color: rgb(225, 246, 255);
+  box-shadow: 5px 5px rgb(21, 218, 208);
+}
+
+th {
+  font-size: 35px;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 2px solid rgb(46, 46, 46);  
+}
+
+th:nth-child(2) {
+  text-align: left;
+}
+
+td {
+  padding: 2px;
+  line-height: 30px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+td:nth-child(2){
+  padding-left: 15px;
+  width: 150px;
+}
+
+td:first-child {
+  border-right: 2px solid rgb(46, 46, 46);
+  text-align: center;
+}
+
+td:last-child{
+  text-align: center;
+}
+
+button {
+  display: block;
+  margin-top: 15px;
+  margin-left: 10px;
+  width: 200px;
+  height: 75px;
+  font-size: 25px;
+
+  font-family: 'Slackey', cursive;
+  font-size: 20px;
+  background-color: rgb(21, 218, 208);
+  color: rgb(225, 246, 255);
+  border: 3px solid rgb(225, 246, 255);
+  border-radius: 5px;
+  
+  margin-bottom: 50px;
+} 
+
+button:hover {
+  color: navy;
+  border: 3px solid navy;
+  transition: .5s;
+}
+
+a {
+  text-decoration: none;
 }

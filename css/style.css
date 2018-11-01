@@ -22,10 +22,10 @@ h1 {
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 28px;
 }
 
-
+/* consider removing this from css style , might only be used on game */
 h3 {
   font-family: 'Overpass Mono', monospace;
 }
