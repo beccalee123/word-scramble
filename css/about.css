@@ -7,32 +7,43 @@ div {
   width: 48%;
   min-width: 250px;
   max-height: 200;
-  margin-right: 10px;
+  margin-right: 13px;
   margin-bottom: 10px;
   float: left;
 }
 
+p {
+  line-height: 1.4em;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+}
+
+div div {
+  width: 100%;
+}
+
+div div img {
+  float: left;
+  height: auto;
+  width: 17px;
+  margin-top: 5px;
+}
+
 div img {
   width:50%;
-  padding:10px;
+  border-radius: 10px;
   float: left;
+  margin: 0px 20px 5px 0px;
 }
 
 div h2 {
   font-family: 'Slackey', cursive;
+  float: left;
+  margin-right: 15px;
 }
 
 div a {
   text-decoration-line: none;
   font-size: 2em;
   border-right: 10px;
-}
-
-div p a img {
-  height: auto;
-  width: 20px;
-}
-
-div p:first-child {
-  margin-bottom: 10px;
 }

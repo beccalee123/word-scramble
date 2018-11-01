@@ -332,9 +332,8 @@ function createEndGame() {
 }
 
 function activateEndGameInput() {
-  var submitEl = document.getElementById('submit-score')
-  var inputEl = document.getElementById('userName')
-
+  var submitEl = document.getElementById('submit-score');
+  var inputEl = document.getElementById('userName');
 
   submitEl.addEventListener('click', handleSubmitScore);
   inputEl.addEventListener('keyup', function(e) {
@@ -355,5 +354,6 @@ function handleSubmitScore(event) {
   } else {
     endGameScore.unshift(name);
     localStorage.setItem('endGameScore', JSON.stringify(endGameScore));
+    window.location.href = 'score.html';
   }
 }
