@@ -5,7 +5,7 @@ var endGameScore = [0];
 
 
 // notification on page leave
-window.addEventListener('beforeunload', function(e) {
+window.addEventListener('beforeunload', function (e) {
   return 'dummy text';
 });
 
@@ -47,10 +47,8 @@ function skipWord() {
   clearInput();
   subTime();
   roundCount++;
-  displayNewWord(); 
-  document.getElementById('alerts').innerHTML = `${
-    shuffledList[roundCount-1].toUpperCase()
-  } was the word you were looking for there.`;
+  displayNewWord();
+  document.getElementById('alerts').innerHTML = `Looks like you had a whale of a time with that one. The correct answer was ${shuffledList[roundCount - 1].toUpperCase()}.`;
   resetFocus();
 }
 
@@ -193,7 +191,7 @@ function clearInput() {
 }
 
 //FORM SUBMISSION
-var handleScrambleSubmission = function(event) {
+var handleScrambleSubmission = function (event) {
   // console.log(`the user submitted an answer`);
   //event.preventDefault();
   if (input.value === '') {
@@ -201,23 +199,23 @@ var handleScrambleSubmission = function(event) {
     //check for correct word
   } else if (input.value === shuffledList[roundCount].toUpperCase()) {
     //this will need to be updated for final version to reflect word scramble code setup
-    document.getElementById('alerts').innerHTML = `${
-      input.value
-    } was the correct word - good job!`;
+    document.getElementById('alerts').innerHTML = `We're happy as a clam that you guessed ${
+      input.value} correctly!`;
     clearInput();
     addTime();
-    calcScore(); 
+    calcScore();
     updateScoreCounter();
     roundCount++;
     displayNewWord();
     resetFocus();
-    
+    console.log(shuffledList[roundCount]);
+
   } else if (checkAnagram(input.value)) {
-    document.getElementById('alerts').innerHTML = `${input.value} is a real word, but we're looking for something with an Ocean theme.`;
+    document.getElementById('alerts').innerHTML = `We know you're feeling salty that we didn't accept ${input.value}. Try something with an Oceanic theme.`;
     clearInput();
     resetFocus();
   } else if (input.value !== shuffledList[roundCount].toUpperCase()) {
-    document.getElementById('alerts').innerHTML = `Nice try, but ${input.value} is not correct. Try again!`;
+    document.getElementById('alerts').innerHTML = `Nice try, but ${input.value} didn't seal the deal.`;
     clearInput();
     resetFocus();
   }
@@ -227,7 +225,7 @@ var handleScrambleSubmission = function(event) {
 
 function activateSubmission() {
   scrambleSubmission.addEventListener('click', handleScrambleSubmission);
-  input.addEventListener('keyup', function(e) {
+  input.addEventListener('keyup', function (e) {
     if (e.which === 13) {
       handleScrambleSubmission();
       event.preventDefault();
@@ -237,7 +235,7 @@ function activateSubmission() {
 
 function deactivateSubmission() {
   scrambleSubmission.removeEventListener('click', handleScrambleSubmission);
-  document.getElementById('input').disabled = true;  
+  document.getElementById('input').disabled = true;
 }
 
 function activateSkip(){
@@ -279,7 +277,7 @@ var shuffledList = [];
 
 //shuffles an array into another array
 //array.shuffle(arry)
-Array.prototype.shuffle = function(array1) {
+Array.prototype.shuffle = function (array1) {
   this.splice(0, this.length); // clear all items in this array
   var array2 = array1.slice(0); // make a copy of array1 in array2
 
@@ -355,7 +353,7 @@ function endGameDataCollection() {
   document.getElementById('scrambleP').style.display = 'none';
   var pEl = document.createElement('p');
   pEl.setAttribute('id', 'endGameP');
-  pEl.textContent = `Well played! You got a score of ${endGameScore[0]}! Would you like to submit your score and see how well you did compared to others?`;
+  pEl.textContent = `Whale played! You got a score of ${endGameScore[0]}! Submit your name to see if you're the biggest fish in the sea.`;
   document.getElementById('gameSpace').appendChild(pEl);
 
   createEndGame();
@@ -380,7 +378,7 @@ function createEndGame() {
   pEl.setAttribute('id', 'end-game-alert');
   pEl.textContent = '';
   gameSpace.appendChild(pEl);
-  
+
   activateEndGameInput();
 }
 
@@ -389,7 +387,7 @@ function activateEndGameInput() {
   var inputEl = document.getElementById('userName');
 
   submitEl.addEventListener('click', handleSubmitScore);
-  inputEl.addEventListener('keyup', function(e) {
+  inputEl.addEventListener('keyup', function (e) {
     if (e.which === 13) {
       handleSubmitScore();
     }
