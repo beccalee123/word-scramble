@@ -9,12 +9,13 @@ window.addEventListener('beforeunload', function(e) {
   return 'dummy text';
 });
 
+
 // change nav item color
 document.getElementsByTagName('li')[1].classList.add('selectedPage')
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 document.getElementById('startGame').addEventListener('click', startGame);
-document.getElementById('skipWord').addEventListener('click', skipWord);
+//document.getElementById('skipWord').addEventListener('click', skipWord);
 
 // document.getElementById('addTime').addEventListener('click', addTime);
 // document.getElementById('resetTimer').addEventListener('click', resetTimer);
@@ -40,9 +41,7 @@ var bonusTime = 0; // accumulated bonus time in ms
 var penaltyTime = 0; // accumulated time penalty
 var started = false; // tracks whether the game is started for initial render
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//              timer functions
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 function skipWord() {
   clearInput();
@@ -64,9 +63,11 @@ function startGame() {
   roundCount = 0;
   displayNewWord();
   activateSubmission();
-  hide(startGameButton);
   createScoreCounter();
   resetFocus();
+  activateSkip();
+  hide(startGameButton, 'none');
+  activateRestart();
 }
 
 function endGame() {
@@ -84,12 +85,30 @@ function endGameStyling() {
   document.getElementById('timerBar').style.visibility = 'hidden';
 }
 
-function hide(element) {
-  element.style.display = 'none';
+function hide(element, hiddenOrNone) {
+  if (hiddenOrNone === 'hidden') {
+    element.style.visibility = 'hidden';
+  } else if (hiddenOrNone === 'none') {
+    element.style.display = 'none';
+  } else {
+    console.log('wrong hiddenOrNone argument')
+  }
+  
 }
 
+function unHide(element) {
+  element.style.visibility = 'visible';
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//              timer functions
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function resetTimer() {
   // disable interval function calls
+  timeLeft = initialTimeAllowed; // remaining time
+  bonusTime = 0; // accumulated bonus time in ms
+  penaltyTime = 0; // accumulated time penalty
+
   clearInterval(timer);
   started = false;
   bonusTime = 0;
@@ -221,6 +240,10 @@ function deactivateSubmission() {
   document.getElementById('input').disabled = true;  
 }
 
+function activateSkip(){
+  document.getElementById('skipWord').addEventListener('click', skipWord);
+}
+
 function deactivateSkip() {
   document.getElementById('skipWord').removeEventListener('click', skipWord);
   document.getElementById('skipWord').disabled = true;
@@ -304,6 +327,23 @@ function checkAnagram(altWord) {
 
 function calcScore() {
   endGameScore[0] += shuffledList[roundCount].length;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//              Restart button
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function restartGame() {
+  var restartResult = window.confirm('Are you sure you want to restart the game and lose your current score?');
+  if (restartResult === true){
+    window.location.href = 'game.html';
+  }
+}
+
+function activateRestart() {
+  var restartGameButton = document.getElementById('restartGame');
+  restartGameButton.addEventListener('click', restartGame);
+  unHide(document.getElementById('restartGame'));
 }
 
 // ++++++++++++++++++ EXECUTABLES +++++++++++++++++++

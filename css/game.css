@@ -112,6 +112,20 @@ h3 {
     border-radius: 5px;
 }
 
+#restartGame {
+    width: 200px;
+    height: 60px;
+    display: block;
+    margin: 20px auto;
+    font-family: 'Slackey', cursive;
+    font-size: 20px;
+    background-color: rgb(21, 218, 208);
+    color: rgb(225, 246, 255);
+    border: 3px solid rgb(225, 246, 255);
+    border-radius: 5px;
+    visibility: hidden;
+}
+
 #alerts {
     text-align: center;
     margin: 15px;

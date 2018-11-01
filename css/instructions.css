@@ -47,7 +47,7 @@ a {
   color: rgb(225, 246, 255);
 }
 
-a:hover li:hover {
+a:hover li:hover, button:hover{
   color: navy;
   border: 3px solid navy;
   transition: .5s;
@@ -66,8 +66,3 @@ main ul {
 #bottom {
   height: 100px;
 }
-
-/* .selectedPage {
-  border-color: navy;
-  color: navy;
-} */
