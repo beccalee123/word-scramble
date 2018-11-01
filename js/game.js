@@ -4,9 +4,6 @@ var roundCount;
 var endGameScore = [0];
 
 
-
-
-
 // notification on page leave
 window.addEventListener('beforeunload', function(e) {
   return 'dummy text';
@@ -23,6 +20,10 @@ document.getElementById('skipWord').addEventListener('click', skipWord);
 // document.getElementById('resetTimer').addEventListener('click', resetTimer);
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//              Element Variables
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var startGameButton = document.getElementById('startGame');
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //              timer globals
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -47,8 +48,7 @@ function skipWord() {
   clearInput();
   subTime();
   roundCount++;
-  displayNewWord();
-  
+  displayNewWord(); 
 }
 
 function startGame() {
@@ -56,6 +56,8 @@ function startGame() {
   roundCount = 0;
   displayNewWord();
   activateSubmission();
+  hide(startGameButton);
+
 }
 
 function endGame() {
@@ -69,6 +71,9 @@ function endGame() {
   //TODO reset/restart button
 }
 
+function hide(element) {
+  element.style.display = 'none';
+}
 
 function resetTimer() {
   // disable interval function calls
