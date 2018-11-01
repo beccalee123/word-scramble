@@ -4,6 +4,12 @@ var roundCount;
 var endGameScore = [0];
 var currentWordScramble;
 
+var oldWordScramble;
+var newWordScramble;
+
+var SWAPSPEED = 3.5;
+var SWAPYAMPLITUDE = 2;
+
 // notification on page leave
 window.addEventListener('beforeunload', function(e) { return 'dummy text';});
 
@@ -13,7 +19,7 @@ document.getElementsByTagName('li')[1].classList.add('selectedPage')
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 document.getElementById('startGame').addEventListener('click', startGame);
 document.getElementById('skipWord').addEventListener('click', skipWord);
-document.getElementById('shuffle').addEventListener('click', shuffleLetters);
+document.getElementById('shuffle').addEventListener('click', swapLetters);
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //              Element Variables
@@ -35,14 +41,13 @@ var bonusTime = 0; // accumulated bonus time in ms
 var penaltyTime = 0; // accumulated time penalty
 var started = false; // tracks whether the game is started for initial render
 
-
-
-function shuffleLetters() {
+function swapLetters() {
   if (started){
     console.log('beginning swap');
+    oldWordScramble = currentWordScramble;
+    newWordScramble = scrambledWord(roundCount).toUpperCase();
     handleSwapButton();
   }
-  
 }
 
 function skipWord() {
