@@ -49,6 +49,9 @@ function skipWord() {
   subTime();
   roundCount++;
   displayNewWord(); 
+  document.getElementById('alerts').innerHTML = `${
+    shuffledList[roundCount-1].toUpperCase()
+  } was the word you were looking for there.`;
 }
 
 function startGame() {
@@ -64,11 +67,15 @@ function endGame() {
   endGameDataCollection();
   deactivateSubmission();
   deactivateSkip();
+  endGameStyling();
   started = false;
-  document.getElementById('gameSpace').style.backgroundColor = '#ff6666';
-  //document.getElementsByTagName('li')[1].style.backgroundColor = 'lightblue';
-  //gameSpace
   //TODO reset/restart button
+}
+
+function endGameStyling() {
+  document.getElementById('gameSpace').style.backgroundColor = 'lightblue';
+  document.getElementById('gameSpace').style.borderColor = 'navy';
+  document.getElementById('timerBar').style.visibility = 'hidden';
 }
 
 function hide(element) {
@@ -78,10 +85,8 @@ function hide(element) {
 function resetTimer() {
   // disable interval function calls
   clearInterval(timer);
-
   started = false;
   bonusTime = 0;
-
   renderTimer();
 }
 
@@ -95,7 +100,6 @@ function startTimer() {
 
 function addTime() {
   bonusTime = bonusTime + 15000;
-  // if ()
   // cap bonus time
   var maxBonusTime = maxTimeAllowed - initialTimeAllowed;
   if (bonusTime > maxBonusTime) {
@@ -143,7 +147,7 @@ function renderTimer() {
   }
 
   // time bar
-  document.getElementById("timerBar").style.width = `${(timeLeft /
+  document.getElementById('timerBar').style.width = `${(timeLeft /
     maxTimeAllowed) * 600}px`;
   // document.getElementById("timerBar").textContent = `${timeLeft / 1000}`;
 }
@@ -350,8 +354,7 @@ function activateEndGameInput() {
 
 function handleSubmitScore(event) {
   // event.preventDefault();
-  var inputEl = document.getElementById('userName')
-  // console.log('in callvbac', inputEl.value)
+  var inputEl = document.getElementById('userName');
 
   var name = inputEl.value;
   if (name === '') {
