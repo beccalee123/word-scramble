@@ -65,6 +65,7 @@ function startGame() {
   displayNewWord();
   activateSubmission();
   hide(startGameButton);
+  createScoreCounter();
   resetFocus();
 }
 
@@ -187,6 +188,7 @@ var handleScrambleSubmission = function(event) {
     clearInput();
     addTime();
     calcScore(); 
+    updateScoreCounter();
     roundCount++;
     displayNewWord();
     resetFocus();
@@ -301,7 +303,6 @@ function checkAnagram(altWord) {
 }
 
 function calcScore() {
-  console.log(shuffledList[roundCount].length);
   endGameScore[0] += shuffledList[roundCount].length;
 }
 
@@ -326,6 +327,7 @@ function createEndGame() {
   var inputEl = document.createElement('input');
   inputEl.setAttribute('id', 'userName');
   inputEl.setAttribute('name', 'userName');
+  inputEl.setAttribute('maxlength', '10');
   inputEl.textContent = '';
   gameSpace.appendChild(inputEl);
 
@@ -366,4 +368,17 @@ function handleSubmitScore(event) {
     localStorage.setItem('endGameScore', JSON.stringify(endGameScore));
     window.location.href = 'score.html';
   }
+}
+
+function createScoreCounter() {
+  var gameSpace = document.getElementById('gameSpace');
+
+  var h2El = document.createElement('h2');
+  h2El.setAttribute('id', 'current-score');
+  h2El.textContent = endGameScore[0];
+  gameSpace.appendChild(h2El);
+}
+
+function updateScoreCounter() {
+  document.getElementById('current-score').innerHTML = endGameScore[0];
 }
