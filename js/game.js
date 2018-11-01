@@ -52,6 +52,11 @@ function skipWord() {
   document.getElementById('alerts').innerHTML = `${
     shuffledList[roundCount-1].toUpperCase()
   } was the word you were looking for there.`;
+  resetFocus();
+}
+
+function resetFocus() {
+  document.getElementById('input').focus();  
 }
 
 function startGame() {
@@ -60,7 +65,7 @@ function startGame() {
   displayNewWord();
   activateSubmission();
   hide(startGameButton);
-
+  resetFocus();
 }
 
 function endGame() {
@@ -184,19 +189,16 @@ var handleScrambleSubmission = function(event) {
     calcScore(); 
     roundCount++;
     displayNewWord();
-    
-    console.log(shuffledList[roundCount]);
+    resetFocus();
     
   } else if (checkAnagram(input.value)) {
-    document.getElementById('alerts').innerHTML = `${
-      input.value
-    } is a real word, but we're looking for something with an Ocean theme.`;
+    document.getElementById('alerts').innerHTML = `${input.value} is a real word, but we're looking for something with an Ocean theme.`;
     clearInput();
+    resetFocus();
   } else if (input.value !== shuffledList[roundCount].toUpperCase()) {
-    document.getElementById('alerts').innerHTML = `Nice try, but ${
-      input.value
-    } is not correct. Try again!`;
+    document.getElementById('alerts').innerHTML = `Nice try, but ${input.value} is not correct. Try again!`;
     clearInput();
+    resetFocus();
   }
 };
 
