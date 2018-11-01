@@ -12,14 +12,29 @@ div {
   float: left;
 }
 
+
+div div {
+  width: 100%;
+}
+
+div div img {
+  float: left;
+  height: auto;
+  width: 17px;
+  margin-top: 5px;
+}
+
 div img {
   width:50%;
-  padding:10px;
+  border-radius: 3px;
   float: left;
+  margin: 0px 15px 5px 0px;
 }
 
 div h2 {
   font-family: 'Slackey', cursive;
+  float: left;
+  margin-right: 15px;
 }
 
 div a {
@@ -27,12 +42,9 @@ div a {
   font-size: 2em;
   border-right: 10px;
 }
-
-div p a img {
+/* 
+div a img {
   height: auto;
   width: 20px;
-}
-
-div p:first-child {
-  margin-bottom: 10px;
-}
+  float: left;
+} */

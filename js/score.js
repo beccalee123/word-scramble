@@ -1,20 +1,7 @@
 'use strict';
 
 // change nav item color
-console.log('test');
 document.getElementsByTagName('li')[2].style.backgroundColor = 'lightblue';
-
-// High score submitted on game.html
-// submission turned into object via constructor
-// object stored in local storage
-// score.html on page load checks for local storage
-// // if NO local storage builds default table
-// // if local storage pulls high score table data
-// // if local storage pulls user submitted high score data
-// checks score of user submission
-// inserts score data (name/score) into table array
-// sorts table array by highest score
-// creates and appends table to DOM
 
 // +++++++++++++++++++++++++++ DATA ++++++++++++++++++++++++++++++
 
@@ -72,13 +59,6 @@ function updateNewScore() {
     localStorage.removeItem('endGameScore');
   }
 }
-
-// ---- test for local storage check
-// function testLocalStorage() {
-//   var endGameScore = ['Charles', 65];
-//   localStorage.setItem('endGameScore', JSON.stringify(endGameScore));
-// }
-
 
 function makeHeaderRow() {
   var theadEl = document.createElement('thead');
