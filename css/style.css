@@ -23,7 +23,6 @@ h1 {
 
 h2 {
   font-size: 28px;
-  
 }
 
 /* consider removing this from css style , might only be used on game */
@@ -78,9 +77,10 @@ nav li {
   border-radius: 5px;
 
   width: 100px;
+  height: 40px;
   margin: 10px auto;
   text-align: center;
-  padding: 20px 0px;  
+  padding: 20px 0px;
 }
 
 nav a {

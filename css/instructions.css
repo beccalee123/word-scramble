@@ -3,58 +3,66 @@
 /* ~~~~~~~~~~~~~~~~ */
 
 main p, main li {
-    font-size: 16px;
-    line-height: 24px;
-  }
-  main p {
-    margin: 5px;
-  }
-  
-  main li {
-    text-indent: 0px;
-    list-style: circle;
-    list-style: outside;
-    margin: 15px;
-    margin-left: 50px;
-    
-  }
-  
-  main h2 {
-    font-size: 25px;
-    margin: 8px;
-  }
-  
-  button {
-    margin-top: 15px;
-    margin-left: 10px;
-    width: 200px;
-    height: 75px;
-    font-size: 25px;
+  font-size: 16px;
+  line-height: 24px;
+}
 
-    font-family: 'Slackey', cursive;
-    font-size: 20px;
-    background-color: rgb(21, 218, 208);
-    color: rgb(225, 246, 255);
-    border: 3px solid rgb(225, 246, 255);
-    border-radius: 5px;
-  }
+main p {
+  margin: 0px 5px 25px 5px;
+}
+  
+main li {
+  text-indent: 0px;
+  list-style: circle;
+  list-style: outside;
+  margin: 9px 15px 9px 15px;
+  margin-left: 50px;
+  line-height: 24px;
+  
+}
+  
+main h2 {
+  font-size: 25px;
+  margin: 8px 8px 25px 8px;
+  font-family: 'Slackey', cursive;
+}
+  
+button {
+  margin: 32px auto 0px auto;
+  width: 200px;
+  height: 75px;
+  font-size: 25px;
+  display: block;
 
-  /* 
-width: 200px;
-height: 60px;
-display: block;
-margin: 20px auto;
-font-family: 'Slackey', cursive;
-font-size: 20px;
-background-color: rgb(21, 218, 208);
-color: rgb(225, 246, 255);
-border: 3px solid rgb(225, 246, 255);
-border-radius: 5px; */
-  
-  /* ~~~~~~~~~~~~~~~~ */
-  /* footer */
-  /* ~~~~~~~~~~~~~~~~ */
-  
-  #bottom {
-    height: 100px;
-  }
+  font-family: 'Slackey', cursive;
+  font-size: 20px;
+  background-color: rgb(21, 218, 208);
+  color: rgb(225, 246, 255);
+  border: 3px solid rgb(225, 246, 255);
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(225, 246, 255);
+}
+
+button:hover {
+  color: navy;
+  border: 3px solid navy;
+  transition: .5s;
+}
+
+main ul {
+  margin-bottom: 24px;
+  width: 90%;
+}
+
+
+/* ~~~~~~~~~~~~~~~~ */
+/* footer */
+/* ~~~~~~~~~~~~~~~~ */
+
+#bottom {
+  height: 100px;
+}

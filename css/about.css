@@ -1,58 +1,49 @@
 section {
   min-width: 600px;
-
 }
+
 div {
-  /* width: auto; */
   height: 50%;
-  /* max-width: 300; */
   width: 48%;
   min-width: 250px;
   max-height: 200;
-  margin-right: 10px;
+  margin-right: 13px;
   margin-bottom: 10px;
   float: left;
-  /* float: left; */
-  /* overflow: auto; */
-}
-#about1 {
-  /* float: left; */
-  /* background-color: black; */
 }
 
-#about2 {
-  /* background-color: orange; */
+p {
+  line-height: 1.4em;
+  font-size: 1.1em;
+  margin-bottom: 15px;
 }
 
-#about3 {
-  /* float: left; */
-  /* background-color: green; */
+div div {
+  width: 100%;
 }
 
-#about4 {
-  /* background-color: red; */
+div div img {
+  float: left;
+  height: auto;
+  width: 17px;
+  margin-top: 5px;
 }
 
 div img {
   width:50%;
-  padding:10px;
+  border-radius: 10px;
   float: left;
+  margin: 0px 20px 5px 0px;
 }
 
 div h2 {
   font-family: 'Slackey', cursive;
-  /* font-size:100%; */
-  /* font-size:auto; */
-
+  float: left;
+  margin-right: 15px;
 }
+
 div a {
   text-decoration-line: none;
   font-size: 2em;
-
-}
-div a img {
-  size:50%;
-}
-div p:first-child {
-margin-bottom: 10px;
+  border-right: 10px;
 }

@@ -16,15 +16,16 @@ input {
     text-align: center;
     background: rgb(225, 246, 255);
     color: navy;
+    border-radius: 5px;
 }
 
 #scrambleP {
     /* text-align: center; */
     color: navy;
     font-size: 75px;
-    margin-top: 80px;
-    vertical-align: middle;
+    margin-top: 60px;
     display: inline-block;
+    font-family: 'Overpass Mono', monospace;
 }
 
 #gameSpace {
@@ -33,17 +34,20 @@ input {
     height: 190px;
     margin: 20px auto;
     text-align: center;
+    border-radius: 5px;
 }
 
 #end-game-alert {
     color: navy;
-
+    display: inline-block;
+    margin-top: 10px;
 }
 
 #endGameP {
     color: navy;
     width: 520px;
     margin-top: 50px;
+    margin-bottom: 10px;
     display: inline-block;
 
 }
@@ -60,6 +64,7 @@ input {
     float: left;
     margin-left: 50px;
     display: inline-block;
+    border-radius: 5px;
 }
 
 #submit-score {
@@ -76,7 +81,7 @@ input {
     float: left;
     margin-left: 15px;
     margin-top: 1px;
-
+    border-radius: 5px;
 }
 
 h3 {
