@@ -15,13 +15,6 @@ document.getElementById('startGame').addEventListener('click', startGame);
 document.getElementById('skipWord').addEventListener('click', skipWord);
 document.getElementById('shuffle').addEventListener('click', shuffleLetters);
 
-
-// document.getElementById('addTime').addEventListener('click', addTime);
-// document.getElementById('resetTimer').addEventListener('click', resetTimer);
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //              Element Variables
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -42,9 +35,7 @@ var bonusTime = 0; // accumulated bonus time in ms
 var penaltyTime = 0; // accumulated time penalty
 var started = false; // tracks whether the game is started for initial render
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//              timer functions
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 function shuffleLetters() {
   if (started){
@@ -59,27 +50,32 @@ function skipWord() {
     clearInput();
     subTime();
     roundCount++;
-    // displayNewWord(); // replaced with canvas
     currentWordScramble = scrambledWord(roundCount).toUpperCase();
     initializeCanvasWithANewWord(currentWordScramble);  // added
   
     // console.log(currentWordScramble);
-    document.getElementById('alerts').innerHTML = `${
-      shuffledList[roundCount-1].toUpperCase()
-    } was the word you were looking for there.`;
+    document.getElementById('alerts').innerHTML = `Looks like you had a whale of a time with that one. The correct answer was ${shuffledList[roundCount - 1].toUpperCase()}.`;
+    resetFocus();
   }
+}
+
+function resetFocus() {
+  document.getElementById('input').focus();
 }
 
 
 function startGame() {
   startTimer();
   roundCount = 0;
-  // displayNewWord(); // replaced with canvas
   currentWordScramble = scrambledWord(roundCount).toUpperCase();
   // console.log(currentWordScramble);
   initializeCanvasWithANewWord(currentWordScramble);  // added
   activateSubmission();
-  hide(startGameButton);
+  createScoreCounter();
+  resetFocus();
+  activateSkip();
+  hide(startGameButton, 'none');
+  activateRestart();
 }
 
 
@@ -98,12 +94,30 @@ function endGameStyling() {
   document.getElementById('timerBar').style.visibility = 'hidden';
 }
 
-function hide(element) {
-  element.style.display = 'none';
+function hide(element, hiddenOrNone) {
+  if (hiddenOrNone === 'hidden') {
+    element.style.visibility = 'hidden';
+  } else if (hiddenOrNone === 'none') {
+    element.style.display = 'none';
+  } else {
+    console.log('wrong hiddenOrNone argument')
+  }
+  
 }
 
+function unHide(element) {
+  element.style.visibility = 'visible';
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//              timer functions
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function resetTimer() {
   // disable interval function calls
+  timeLeft = initialTimeAllowed; // remaining time
+  bonusTime = 0; // accumulated bonus time in ms
+  penaltyTime = 0; // accumulated time penalty
+
   clearInterval(timer);
   started = false;
   bonusTime = 0;
@@ -223,7 +237,7 @@ function clearInput() {
 }
 
 //FORM SUBMISSION
-var handleScrambleSubmission = function(event) {
+var handleScrambleSubmission = function (event) {
   // console.log(`the user submitted an answer`);
   //event.preventDefault();
   if (input.value === '') {
@@ -232,29 +246,28 @@ var handleScrambleSubmission = function(event) {
     //check for correct word
   } else if (input.value === shuffledList[roundCount].toUpperCase()) {
     //this will need to be updated for final version to reflect word scramble code setup
-    document.getElementById('alerts').innerHTML = `${
-      input.value
-    } was the correct word - good job!`;
+    document.getElementById('alerts').innerHTML = `We're happy as a clam that you guessed ${
+      input.value} correctly!`;
     clearInput();
     addTime();
-    calcScore(); 
+    calcScore();
+    updateScoreCounter();
     roundCount++;
     displayNewWord();
-    
+    resetFocus();
     console.log(shuffledList[roundCount]);
-    
+
   } else if (checkAnagram(input.value)) {
     handleWiggleButton(); // add wiggle
-    document.getElementById('alerts').innerHTML = `${
-      input.value
-    } is a real word, but we're looking for something with an Ocean theme.`;
+    document.getElementById('alerts').innerHTML = `We know you're feeling salty that we didn't accept ${input.value}. Try something with an Oceanic theme.`;
     clearInput();
+    resetFocus();
   } else if (input.value !== shuffledList[roundCount].toUpperCase()) {
     handleWiggleButton(); // add wiggle
-    document.getElementById('alerts').innerHTML = `Nice try, but ${
-      input.value
-    } is not correct. Try again!`;
+    document.getElementById('alerts').innerHTML = `Nice try, but ${input.value} didn't seal the deal.`;
+
     clearInput();
+    resetFocus();
   }
 };
 
@@ -262,7 +275,7 @@ var handleScrambleSubmission = function(event) {
 
 function activateSubmission() {
   scrambleSubmission.addEventListener('click', handleScrambleSubmission);
-  input.addEventListener('keyup', function(e) {
+  input.addEventListener('keyup', function (e) {
     if (e.which === 13) {
       handleScrambleSubmission();
       event.preventDefault();
@@ -272,7 +285,11 @@ function activateSubmission() {
 
 function deactivateSubmission() {
   scrambleSubmission.removeEventListener('click', handleScrambleSubmission);
-  document.getElementById('input').disabled = true;  
+  document.getElementById('input').disabled = true;
+}
+
+function activateSkip(){
+  document.getElementById('skipWord').addEventListener('click', skipWord);
 }
 
 function deactivateSkip() {
@@ -306,7 +323,7 @@ var shuffledList = [];
 
 //shuffles an array into another array
 //array.shuffle(arry)
-Array.prototype.shuffle = function(array1) {
+Array.prototype.shuffle = function (array1) {
   this.splice(0, this.length); // clear all items in this array
   var array2 = array1.slice(0); // make a copy of array1 in array2
 
@@ -355,8 +372,24 @@ function checkAnagram(altWord) {
 }
 
 function calcScore() {
-  console.log(shuffledList[roundCount].length);
   endGameScore[0] += shuffledList[roundCount].length;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//              Restart button
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function restartGame() {
+  var restartResult = window.confirm('Are you sure you want to restart the game and lose your current score?');
+  if (restartResult === true){
+    window.location.href = 'game.html';
+  }
+}
+
+function activateRestart() {
+  var restartGameButton = document.getElementById('restartGame');
+  restartGameButton.addEventListener('click', restartGame);
+  unHide(document.getElementById('restartGame'));
 }
 
 // ++++++++++++++++++ EXECUTABLES +++++++++++++++++++
@@ -368,7 +401,7 @@ function endGameDataCollection() {
   document.getElementById('scrambleP').style.display = 'none';
   var pEl = document.createElement('p');
   pEl.setAttribute('id', 'endGameP');
-  pEl.textContent = `Well played! You got a score of ${endGameScore[0]}! Would you like to submit your score and see how well you did compared to others?`;
+  pEl.textContent = `Whale played! You got a score of ${endGameScore[0]}! Submit your name to see if you're the biggest fish in the sea.`;
   document.getElementById('gameSpace').appendChild(pEl);
 
   createEndGame();
@@ -380,6 +413,7 @@ function createEndGame() {
   var inputEl = document.createElement('input');
   inputEl.setAttribute('id', 'userName');
   inputEl.setAttribute('name', 'userName');
+  inputEl.setAttribute('maxlength', '10');
   inputEl.textContent = '';
   gameSpace.appendChild(inputEl);
 
@@ -392,7 +426,7 @@ function createEndGame() {
   pEl.setAttribute('id', 'end-game-alert');
   pEl.textContent = '';
   gameSpace.appendChild(pEl);
-  
+
   activateEndGameInput();
 }
 
@@ -401,7 +435,7 @@ function activateEndGameInput() {
   var inputEl = document.getElementById('userName');
 
   submitEl.addEventListener('click', handleSubmitScore);
-  inputEl.addEventListener('keyup', function(e) {
+  inputEl.addEventListener('keyup', function (e) {
     if (e.which === 13) {
       handleSubmitScore();
     }
@@ -420,4 +454,17 @@ function handleSubmitScore(event) {
     localStorage.setItem('endGameScore', JSON.stringify(endGameScore));
     window.location.href = 'score.html';
   }
+}
+
+function createScoreCounter() {
+  var gameSpace = document.getElementById('gameSpace');
+
+  var h2El = document.createElement('h2');
+  h2El.setAttribute('id', 'current-score');
+  h2El.textContent = endGameScore[0];
+  gameSpace.appendChild(h2El);
+}
+
+function updateScoreCounter() {
+  document.getElementById('current-score').innerHTML = endGameScore[0];
 }
