@@ -28,6 +28,7 @@ input {
 }
 
 #gameSpace {
+    
     background: rgb(225, 246, 255);
     border: 3px solid rgb(225, 246, 255);
     width: 614px;
@@ -35,6 +36,12 @@ input {
     margin: 20px auto;
     text-align: center;
     border-radius: 5px;
+    
+    background: red;
+}
+
+canvas {
+    background-color: green;
 }
 
 #end-game-alert {
@@ -146,6 +153,19 @@ h3 {
 }
 
 #skipWord {
+    height: 103px;
+    width: 90px;
+    font-size: 16px;
+    font-family: 'Slackey', cursive;
+    background-color: rgb(21, 218, 208);
+    color: rgb(225, 246, 255);
+    border: 3px solid rgb(225, 246, 255);
+    border-radius: 5px;
+    margin: 1px 3px 0px 3px;
+    text-align: center;
+}
+
+#shuffle {
     height: 103px;
     width: 90px;
     font-size: 16px;
