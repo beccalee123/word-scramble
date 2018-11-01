@@ -350,11 +350,13 @@ function scrambledWord(roundNumber) {
   // currentWordScramble
   do {
     shuffledWord.shuffle(letterArray);
-  } while (shuffledWord === letterArray);  
+    shuffledWord = shuffledWord.join(''); //turn into string for the check
+  } while (shuffledWord === word);  
   {
-    shuffledWord.shuffle(letterArray);
+    shuffledWord = shuffledWord.split(''); //turn into array
+    shuffledWord.shuffle(letterArray);    //reshuffle
+    shuffledWord = shuffledWord.join(''); //turn into string for the check
   }
-  shuffledWord = shuffledWord.join('');
   return shuffledWord;
 }
 
