@@ -63,6 +63,9 @@ function endGame() {
   deactivateSubmission();
   deactivateSkip();
   started = false;
+  document.getElementById('gameSpace').style.backgroundColor = '#ff6666';
+  //document.getElementsByTagName('li')[1].style.backgroundColor = 'lightblue';
+  //gameSpace
   //TODO reset/restart button
 }
 
