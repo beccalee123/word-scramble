@@ -1,10 +1,12 @@
 'use strict';
 
-document.getElementById('stop').addEventListener('click', stopAnimate);
-document.getElementById('start').addEventListener('click', startAnimatingCanvas);
-document.getElementById('wiggle').addEventListener('click', handleWiggleButton);
+// document.getElementById('stop').addEventListener('click', stopAnimate);
+// document.getElementById('start').addEventListener('click', startAnimatingCanvas);
+// document.getElementById('wiggle').addEventListener('click', handleWiggleButton);
 // document.getElementById('move').addEventListener('click', handleMoveButton);
-document.getElementById('swap').addEventListener('click', handleSwapButton);
+// document.getElementById('swap').addEventListener('click', handleSwapButton);
+
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -36,6 +38,10 @@ function Letter(letter) {
     // TODO: implement wave functionality 
     //this.age
 }
+
+// Letter.prototype.delete = function() {
+
+// }
 
 Letter.prototype.rand = function(min, max) {
     // credit https://stackoverflow.com/questions/8611830/javascript-random-positive-or-negative-number
@@ -269,51 +275,28 @@ Letter.prototype.update = function() {
     
 }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ~~~~~~ global animation variables ~~~~~~~~
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-// create canvas
-// TODO: is this the best place for this? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var canvasEl = document.getElementById('canvas');
-var ctx = canvasEl.getContext("2d");
-ctx.font = "2em monospace";
-
-var animate;
-var allLetters = [];
-var wordArray = [];
-var UPDATEINTERVAL = 10; //ms
-
-var word = 'abcdefghij'; // TODO: integrate with new word functionality ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ~~~~~~~~~ stuff that runs ~~~~~~~~~
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-// begin update cycle
-// call this on page load
-startAnimatingCanvas();
-
-
-// call when a new word is displayed on canvas
-// start game
-// skip word
-// ??
-initializeCanvasWithANewWord(word);
-
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~   functions     ~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function initializeCanvasWithANewWord(word){
 
+    // console.log('allLetters Before: ');
+    // for (var i = 0; i < allLetters.length; i++){
+    //     console.log(allLetters[i].letter);
+    // }
+
+    // first, remove old letters
+    if (allLetters.length > 0){
+        allLetters = [];
+    }
+
     // convert word into an array of letters for easier handling
+    wordArray = [];
     for (var i = 0; i < word.length; i++){
         wordArray[i] = word[i];
     }
-
+    
     // instantiate letter objects
     for (var i = 0; i < wordArray.length; i++){
         new Letter(wordArray[i]);
@@ -349,7 +332,7 @@ function drawCanvas() {
 // clear canvas to white background , called constantly
 // TODO: confirm with the group on whether we want a pure white background or not ~~~~~~~~~~~~~~~
 function clearCanvas() {
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "lightblue";
     ctx.fillRect(0,0,canvasEl.width,canvasEl.height);
 }
 
@@ -368,7 +351,7 @@ function renderInitial(){
     var canvasHeight = document.getElementsByTagName('canvas')[0].height;
 
     // Y is about the middle of the canvas
-    var wordY = canvasHeight/2 + 8;
+    var wordY = canvasHeight/2 + 15; // add an offset to center the word
 
     // get X coords
     var letterXCoordinates = generateXCoordinates(wordArray.length);
@@ -404,7 +387,6 @@ function handleWiggleButton() {
     }    
 }
 
-// TODO: link this to the button that exists on the game page, rather than the one that is on the testing page ~~~~~~~~~~~~~~~
 function handleSwapButton(){
     
     // is it already swapping?
@@ -414,20 +396,22 @@ function handleSwapButton(){
             swapIsUnderWay = true;
         }
     }
-
+    
     // if not already swapping, initiate a swap
     if (!swapIsUnderWay){
+        
         // get current word
         //TODO: replace this retrieving of current word with something that references the actual word, UNSCRAMBLED ~~~~~~~~~~~~~~~
-        var currentWord = word; 
+        var currentWord = shuffledList[roundCount]; 
 
         // scramble
         //TODO: replace scramble with something that is returned from the existing scramble function ~~~~~~~~~~~~~~~
-        var scramble = scrambleWord(currentWord, currentWord);
+        // var scramble = scrambleWord(currentWord, currentWord);
 
         // initiate swap
-        initiateSwap(scramble);
+        initiateSwap(currentWord);
     }
+    // console.log('test');
 }
 
 // take a swap command and convert it into a move command for each letter
@@ -477,11 +461,11 @@ function initiateSwap(newScramble) {
 // evenly spaced X coordinates
 function generateXCoordinates(numLetters){
     
+    // Global variables: letterSpacing, letterWidth
+
     var coordArray = [];
     // TODO: is this the best way to retrieve the canvas element?
     var canvasWidth = document.getElementsByTagName('canvas')[0].width;
-    var letterSpacing = 10;
-    var letterWidth = 10;
     var spacing = letterSpacing + letterWidth;
     var wordLength = (spacing * numLetters) - letterSpacing;
 

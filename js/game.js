@@ -2,24 +2,18 @@
 
 var roundCount;
 var endGameScore = [0];
-
+var currentWordScramble;
 
 // notification on page leave
-window.addEventListener('beforeunload', function (e) {
-  return 'dummy text';
-});
-
+window.addEventListener('beforeunload', function(e) { return 'dummy text';});
 
 // change nav item color
 document.getElementsByTagName('li')[1].classList.add('selectedPage')
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 document.getElementById('startGame').addEventListener('click', startGame);
-//document.getElementById('skipWord').addEventListener('click', skipWord);
-
-// document.getElementById('addTime').addEventListener('click', addTime);
-// document.getElementById('resetTimer').addEventListener('click', resetTimer);
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+document.getElementById('skipWord').addEventListener('click', skipWord);
+document.getElementById('shuffle').addEventListener('click', shuffleLetters);
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //              Element Variables
@@ -43,23 +37,39 @@ var started = false; // tracks whether the game is started for initial render
 
 
 
+function shuffleLetters() {
+  if (started){
+    console.log('beginning swap');
+    handleSwapButton();
+  }
+  
+}
+
 function skipWord() {
-  clearInput();
-  subTime();
-  roundCount++;
-  displayNewWord();
-  document.getElementById('alerts').innerHTML = `Looks like you had a whale of a time with that one. The correct answer was ${shuffledList[roundCount - 1].toUpperCase()}.`;
-  resetFocus();
+  if (started){  // added this
+    clearInput();
+    subTime();
+    roundCount++;
+    currentWordScramble = scrambledWord(roundCount).toUpperCase();
+    initializeCanvasWithANewWord(currentWordScramble);  // added
+  
+    // console.log(currentWordScramble);
+    document.getElementById('alerts').innerHTML = `Looks like you had a whale of a time with that one. The correct answer was ${shuffledList[roundCount - 1].toUpperCase()}.`;
+    resetFocus();
+  }
 }
 
 function resetFocus() {
-  document.getElementById('input').focus();  
+  document.getElementById('input').focus();
 }
+
 
 function startGame() {
   startTimer();
   roundCount = 0;
-  displayNewWord();
+  currentWordScramble = scrambledWord(roundCount).toUpperCase();
+  // console.log(currentWordScramble);
+  initializeCanvasWithANewWord(currentWordScramble);  // added
   activateSubmission();
   createScoreCounter();
   resetFocus();
@@ -67,6 +77,7 @@ function startGame() {
   hide(startGameButton, 'none');
   activateRestart();
 }
+
 
 function endGame() {
   endGameDataCollection();
@@ -177,6 +188,41 @@ function renderTimer() {
 
 renderTimer();
 
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~ global animation variables ~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// create canvas
+// TODO: is this the best place for this? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var canvasEl = document.getElementById('canvas');
+var ctx = canvasEl.getContext("2d");
+ctx.font = "3em 'Overpass Mono'";
+
+var letterSpacing = 20;
+var letterWidth = 15;
+
+var animate;
+var allLetters = [];
+var wordArray = [];
+var UPDATEINTERVAL = 10; //ms
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// canvas stuff that runs on page load
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// begin update cycle
+// call this on page load
+startAnimatingCanvas();
+
+// call when a new word is displayed on canvas
+// start game
+// skip word
+// ??
+initializeCanvasWithANewWord('OCEAN COMMOTION');
+
+
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //              input checker functions
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -195,6 +241,7 @@ var handleScrambleSubmission = function (event) {
   // console.log(`the user submitted an answer`);
   //event.preventDefault();
   if (input.value === '') {
+    handleWiggleButton(); // add wiggle
     document.getElementById('alerts').innerHTML = 'Field cannot be empty';
     //check for correct word
   } else if (input.value === shuffledList[roundCount].toUpperCase()) {
@@ -211,11 +258,14 @@ var handleScrambleSubmission = function (event) {
     console.log(shuffledList[roundCount]);
 
   } else if (checkAnagram(input.value)) {
+    handleWiggleButton(); // add wiggle
     document.getElementById('alerts').innerHTML = `We know you're feeling salty that we didn't accept ${input.value}. Try something with an Oceanic theme.`;
     clearInput();
     resetFocus();
   } else if (input.value !== shuffledList[roundCount].toUpperCase()) {
+    handleWiggleButton(); // add wiggle
     document.getElementById('alerts').innerHTML = `Nice try, but ${input.value} didn't seal the deal.`;
+
     clearInput();
     resetFocus();
   }
@@ -266,12 +316,8 @@ function forceKeyPressUppercase(e) {
   }
 }
 
-document
-  .getElementById("input")
-  .addEventListener("keypress", forceKeyPressUppercase, false);
-document
-  .getElementById("input")
-  .addEventListener("keypress", forceKeyPressUppercase, false);
+document.getElementById("input").addEventListener("keypress", forceKeyPressUppercase, false);
+document.getElementById("input").addEventListener("keypress", forceKeyPressUppercase, false);
 
 var shuffledList = [];
 
@@ -300,9 +346,11 @@ function scrambledWord(roundNumber) {
   var shuffledWord = [];
 
   //scramble until shuffledWord is different from letterArray
+  //TODO: add another case to make sure it is't the same scramble
+  // currentWordScramble
   do {
     shuffledWord.shuffle(letterArray);
-  } while (shuffledWord === letterArray);
+  } while (shuffledWord === letterArray);  
   {
     shuffledWord.shuffle(letterArray);
   }
