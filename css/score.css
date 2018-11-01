@@ -23,11 +23,35 @@ div {
   box-shadow: 5px 5px rgb(21, 218, 208);
 }
 
+main div::-webkit-scrollbar {
+  width: 1em;
+}
+
+main div::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(5, 12, 80, 0.3);
+  margin: 30px 0px 30px 0px;
+  border-radius: 5px;
+}
+
+main div::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 128, 0.267);
+  outline: 1px solid slategrey;
+  border-radius: 5px;
+}
+
+table {
+  width: 620px;
+}
+
 th {
   font-size: 35px;
   font-weight: bold;
   padding: 10px;
   border-bottom: 2px solid rgb(46, 46, 46);  
+}
+
+tr:nth-child(even) {
+  background-color: lightblue;
 }
 
 th:nth-child(2) {
@@ -49,10 +73,12 @@ td:nth-child(2){
 td:first-child {
   border-right: 2px solid rgb(46, 46, 46);
   text-align: center;
+  width: 50px;
 }
 
 td:last-child{
   text-align: center;
+  width: 75px;
 }
 
 button {
