@@ -86,3 +86,9 @@ nav li {
 nav a {
   text-decoration: none;
 }
+
+.selectedPage {
+  border-color: navy;
+  color: navy;
+  background-color: lightblue;
+}

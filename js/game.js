@@ -10,7 +10,7 @@ window.addEventListener('beforeunload', function(e) {
 });
 
 // change nav item color
-document.getElementsByTagName('li')[1].style.backgroundColor = 'lightblue';
+document.getElementsByTagName('li')[1].classList.add('selectedPage')
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 document.getElementById('startGame').addEventListener('click', startGame);

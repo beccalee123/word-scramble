@@ -47,3 +47,9 @@ div a {
   font-size: 2em;
   border-right: 10px;
 }
+
+a:hover li:hover {
+  color: navy;
+  border: 3px solid navy;
+  transition: .5s;
+}

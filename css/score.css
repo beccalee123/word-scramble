@@ -82,3 +82,9 @@ button:hover {
 a {
   text-decoration: none;
 }
+
+a:hover li:hover {
+  color: navy;
+  border: 3px solid navy;
+  transition: .5s;
+}
