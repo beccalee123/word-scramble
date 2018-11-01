@@ -112,7 +112,7 @@ Letter.prototype.assignSwap = function(endX, endY) {
 Letter.prototype.draw = function() {
 
     // set the letter color
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "navy";
 
     // draw the letter at current position
     ctx.fillText(`${this.letter}`, this.xPosition, this.yPosition);
@@ -120,6 +120,12 @@ Letter.prototype.draw = function() {
 }
 
 Letter.prototype.incrementPosition = function() {
+
+    // if (this.letter === 'A' || this.letter === 'a'){
+    //     console.log(`${this.letter} position ${this.xPosition}`)
+    // }
+    
+    // debugger
     var xDistance = this.xDestination - this.xPosition;
     var yDistance = this.yDestination - this.yPosition;
 
@@ -220,8 +226,7 @@ Letter.prototype.calcSwapYVelocity = function() {
     if (Math.abs(totalXTravel) > 0) {
         var pctComplete = (this.xPosition - this.xInitial) / totalXTravel;
         var angle = pctComplete * Math.PI; // in radians
-        var yScaleFactor = 1;
-        var yVelocity = Math.cos(angle) * yScaleFactor;
+        var yVelocity = Math.cos(angle) * SWAPYAMPLITUDE;
     } else {
         var yVelocity = 0;
     }
@@ -239,7 +244,7 @@ Letter.prototype.update = function() {
     // if swapping
     // disable wiggling, and set speed higher
     if (this.xSwapping || this.ySwapping) {
-        this.xSpeed = 1;
+        this.xSpeed = SWAPSPEED;
         this.calcSwapYVelocity();
         this.wiggling = false;
     }
@@ -332,7 +337,7 @@ function drawCanvas() {
 // clear canvas to white background , called constantly
 // TODO: confirm with the group on whether we want a pure white background or not ~~~~~~~~~~~~~~~
 function clearCanvas() {
-    ctx.fillStyle = "lightblue";
+    ctx.fillStyle = "rgb(225, 246, 255)";
     ctx.fillRect(0,0,canvasEl.width,canvasEl.height);
 }
 
@@ -399,48 +404,58 @@ function handleSwapButton(){
     
     // if not already swapping, initiate a swap
     if (!swapIsUnderWay){
-        
-        // get current word
-        //TODO: replace this retrieving of current word with something that references the actual word, UNSCRAMBLED ~~~~~~~~~~~~~~~
-        var currentWord = shuffledList[roundCount]; 
 
-        // scramble
-        //TODO: replace scramble with something that is returned from the existing scramble function ~~~~~~~~~~~~~~~
-        // var scramble = scrambleWord(currentWord, currentWord);
+        // generate a new scramble
+        // TODO: THE SCRAMBLE MIGHT NOT GO HERE!!!
+        // SET THE WORD BEFORE HANDLE SWAP BUTTON
+        // console.log('original word: ', shuffledList[roundCount]);
+        // var newScramble = scrambledWord(roundCount);
+        // console.log('newScramble: ', newScramble);
+
 
         // initiate swap
-        initiateSwap(currentWord);
+        initiateSwap();
     }
-    // console.log('test');
 }
 
 // take a swap command and convert it into a move command for each letter
-function initiateSwap(newScramble) {
-    var newScrambleArray = []
-    for (var i = 0; i < newScramble.length; i++){
-        newScrambleArray[i] = newScramble[i];
-    }
+function initiateSwap() {
+    console.log('entering swap');
+    console.log('existing scramble: ', oldWordScramble);
+    console.log('target scramble: ', newWordScramble);
+
+    // var newScrambleArray = []
+    // for (var i = 0; i < newScramble.length; i++){
+    //     newScrambleArray[i] = newScramble[i];
+    // }
+
+    var newWordScrambleArray = Array.from(newWordScramble);
+    console.log('target scramble array: ', newWordScrambleArray);
     
+    var oldWordScrambleArray = Array.from(oldWordScramble);
+    console.log('current scramble: ', oldWordScrambleArray);
+
+    var numLetters = newWordScrambleArray.length;
     // iterate thru the wordArray and generate new index positions
     var newIndexes = [];
-    for (var i = 0; i < wordArray.length; i++){
+    for (var i = 0; i < numLetters; i++){
 
         // find the index of the letter in the new word
-        var currentLetter = wordArray[i];
+        var currentLetter = oldWordScrambleArray[i];
 
         // newIndex is the index of the current letter in the new array
-        var newIndex = newScrambleArray.indexOf(currentLetter);
+        var newIndex = newWordScrambleArray.indexOf(currentLetter);
 
         // save the new index in the array that keeps track of new positions
         newIndexes[i] = newIndex;
 
         // remove instance of that letter, -1 will never be in any letter
         // because indexOf returns the first instance of the thing in the array
-        newScrambleArray[newIndex] = -1;
+        newWordScrambleArray[newIndex] = -1;
     }
     
     // generate new X Y positions
-    var xCoords = generateXCoordinates(newScramble.length);
+    var xCoords = generateXCoordinates(numLetters);
 
     // assign moves to new X Y positions
     for (var i = 0; i < allLetters.length; i++){
@@ -479,12 +494,6 @@ function generateXCoordinates(numLetters){
 
     return coordArray;
 }
-
-
-
-
-
-
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

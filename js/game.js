@@ -4,6 +4,12 @@ var roundCount;
 var endGameScore = [0];
 var currentWordScramble;
 
+var oldWordScramble;
+var newWordScramble;
+
+var SWAPSPEED = 3.5;
+var SWAPYAMPLITUDE = 2;
+
 // notification on page leave
 window.addEventListener('beforeunload', function(e) { return 'dummy text';});
 
@@ -13,7 +19,7 @@ document.getElementsByTagName('li')[1].classList.add('selectedPage')
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 document.getElementById('startGame').addEventListener('click', startGame);
 document.getElementById('skipWord').addEventListener('click', skipWord);
-document.getElementById('shuffle').addEventListener('click', shuffleLetters);
+document.getElementById('shuffle').addEventListener('click', swapLetters);
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //              Element Variables
@@ -35,14 +41,12 @@ var bonusTime = 0; // accumulated bonus time in ms
 var penaltyTime = 0; // accumulated time penalty
 var started = false; // tracks whether the game is started for initial render
 
-
-
-function shuffleLetters() {
+function swapLetters() {
   if (started){
-    console.log('beginning swap');
+    oldWordScramble = currentWordScramble;
+    newWordScramble = scrambledWord(roundCount).toUpperCase();
     handleSwapButton();
   }
-  
 }
 
 function skipWord() {
@@ -253,9 +257,10 @@ var handleScrambleSubmission = function (event) {
     calcScore();
     updateScoreCounter();
     roundCount++;
-    displayNewWord();
+    currentWordScramble = scrambledWord(roundCount).toUpperCase();
+    initializeCanvasWithANewWord(currentWordScramble);
     resetFocus();
-    console.log(shuffledList[roundCount]);
+    // console.log(shuffledList[roundCount]);
 
   } else if (checkAnagram(input.value)) {
     handleWiggleButton(); // add wiggle
@@ -296,6 +301,12 @@ function deactivateSkip() {
   document.getElementById('skipWord').removeEventListener('click', skipWord);
   document.getElementById('skipWord').disabled = true;
 }
+
+document.onkeydown = function (e) {
+  if (e.which === 39) {
+    skipWord();
+  }
+};
 
 function forceKeyPressUppercase(e) {
   var charInput = e.keyCode;
@@ -350,11 +361,13 @@ function scrambledWord(roundNumber) {
   // currentWordScramble
   do {
     shuffledWord.shuffle(letterArray);
-  } while (shuffledWord === letterArray);  
+    shuffledWord = shuffledWord.join(''); //turn into string for the check
+  } while (shuffledWord === word);  
   {
-    shuffledWord.shuffle(letterArray);
+    shuffledWord = shuffledWord.split(''); //turn into array
+    shuffledWord.shuffle(letterArray);    //reshuffle
+    shuffledWord = shuffledWord.join(''); //turn into string for the check
   }
-  shuffledWord = shuffledWord.join('');
   return shuffledWord;
 }
 
