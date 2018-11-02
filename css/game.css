@@ -8,6 +8,10 @@
     border: 1px solid navy;
 }
 
+#timerBarContainer {
+    width: 705px;
+}
+
 input {
     width: 430px;
     height: 100px;
@@ -33,7 +37,7 @@ input {
     border: 3px solid rgb(225, 246, 255);
     width: 705px;
     height: 190px;
-    margin-left: 91px;
+    margin-left: 0px;  /* changed from 91 */
     text-align: center;
     border-radius: 5px;
     position: relative;
@@ -140,7 +144,7 @@ h3 {
     height: 20px;
     width: 680px;
     text-align: center;
-    margin: 10px 15px 20px 105px;
+    margin: 15px 15px 15px 15px;   /* changed from 105 to 15 on left margin */
     color: navy;
     font-size: 1.1em;
 }
@@ -193,7 +197,7 @@ h3 {
 .flex-container {
     display: flex;
     width: 620px;
-    margin: 0px auto;
+    /* margin: 0px auto; */   /* changed to comment it out */
 }
 
 a:hover li:hover {
