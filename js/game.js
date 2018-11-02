@@ -305,9 +305,9 @@ function deactivateSkip() {
 }
 
 document.onkeydown = function (e) {
-  if (e.which === 39) {
+  if (e.which === 40) {
     skipWord();
-  } else if ((e.which === 37)) {
+  } else if ((e.which === 38)) {
     swapLetters();
   }
 };
