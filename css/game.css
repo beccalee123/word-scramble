@@ -184,7 +184,7 @@ h3 {
     text-align: center;
 }
 
-#startGame:hover, #scramble-submit:hover, #skipWord:hover, #submit-score:hover {
+#startGame:hover, #scramble-submit:hover, #skipWord:hover, #submit-score:hover, #shuffle:hover{
     color: navy;
     border: 3px solid navy;
     transition: .5s;
