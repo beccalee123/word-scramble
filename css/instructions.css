@@ -61,7 +61,6 @@ main ul {
   width: 90%;
 }
 
-
 /* ~~~~~~~~~~~~~~~~ */
 /* footer */
 /* ~~~~~~~~~~~~~~~~ */
@@ -69,3 +68,18 @@ main ul {
 #bottom {
   height: 100px;
 }
+
+
+/* ~~~~~~~~~~~~~~~~ */
+/* optional styling to make bubbles go behind the letters a little bit */
+
+
+p , ul , h2{
+  border-radius: 10px;
+  background-color: rgb(51, 134, 167, 0.65);
+}
+
+h2 {
+  display: inline-block;
+}
+/* ~~~~~~~~~~~~~~~~ */

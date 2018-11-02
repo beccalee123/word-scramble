@@ -58,3 +58,15 @@ a:hover li:hover {
   border: 3px solid navy;
   transition: .5s;
 }
+
+
+
+/* ~~~~~~~~~~~~~~~~ */
+/* optional styling to make bubbles go behind the letters a little bit */
+
+p {
+  border-radius: 10px;
+  background-color: rgb(51, 134, 167, 0.65);
+}
+
+/* ~~~~~~~~~~~~~~~~ */
