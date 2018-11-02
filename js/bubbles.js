@@ -6,8 +6,10 @@ var html = document.getElementsByTagName('html')[0];
 var bubbleCanvasEl = document.createElement('canvas');
 
 // style the canvas
-bubbleCanvasEl.setAttribute('width', '2000');
-bubbleCanvasEl.setAttribute('height', '2000');
+var bubbleCanvasWidth = 2000;
+var bubbleCanvasHeight = 2000;
+bubbleCanvasEl.setAttribute('width', bubbleCanvasWidth);
+bubbleCanvasEl.setAttribute('height', bubbleCanvasHeight);
 bubbleCanvasEl.style.position = 'fixed';
 bubbleCanvasEl.style.top = '0';
 bubbleCanvasEl.style.left = '0';
@@ -21,24 +23,47 @@ html.appendChild(bubbleCanvasEl);
 // create context
 var bubbleCtx = bubbleCanvasEl.getContext('2d');
 
-
 var screenWidth = document.documentElement.clientWidth;
 var screenHeight = document.documentElement.clientHeight;
 
-var bubbleUpdateInterval = 20; // ms
+var bubbleUpdateInterval = 16; // ms
 var allBubbles = [];
 var time = 0;
-var bubbleRate = 10;
+var bubbleRate = 200; // lower is more bubbles
+
+
 
 function Bubble(x,y) {
 
-    this.radius = Math.floor(Math.random()*50)+10;
+    // this.radius = Math.floor(Math.random()*50)+10; 
+
+    // pick a random size
+    var max = 100;
+    var min = 10;
+    this.radius = Math.floor(Math.random()*(max-min))+min; 
+    
+    // re roll the top half
+    if (this.radius > (max * 0.5) ){
+        this.radius = Math.floor(Math.random()*(max-min))+min; 
+    }
+
+    // re-roll the top third
+    if (this.radius > (max * 0.75)){
+        // re-roll
+        this.radius = Math.floor(Math.random()*(max-min))+min; 
+    }
+
+    // re-roll the top 90%
+    if (this.radius > (max * 0.9)){
+        // re-roll
+        this.radius = Math.floor(Math.random()*(max-min))+min; 
+    }
 
     this.xPosition = x;
-    this.yPosition = y;
+    this.yPosition = y + 100;
   
     this.xSpeed = 0;
-    this.ySpeed = (1 / this.radius)*100;
+    this.ySpeed = (1 / this.radius)*25;
 
     this.age = 0;
 
@@ -46,7 +71,7 @@ function Bubble(x,y) {
 }
 
 Bubble.prototype.update = function() {
-    this.age++;
+    // this.age++;
 
     this.yPosition -= this.ySpeed;
 
@@ -57,31 +82,74 @@ Bubble.prototype.update = function() {
 
 Bubble.prototype.draw = function() {
 
+    var dimFactor = 0.25;
+    bubbleCtx.fillStyle = `rgba(138, 249, 255, ${0.5*dimFactor})`;
     bubbleCtx.beginPath();
+    
+    bubbleCtx.lineWidth = 0;
     bubbleCtx.arc(this.xPosition,this.yPosition,this.radius,0,2*Math.PI);
+    bubbleCtx.fill();
+    
+    bubbleCtx.fillStyle = `rgba(255, 255, 255, ${0.5*dimFactor})`;
+    bubbleCtx.beginPath();
+    bubbleCtx.lineWidth = 0;
+    bubbleCtx.arc(this.xPosition,this.yPosition,this.radius*0.8,0,2*Math.PI);
+    bubbleCtx.fill();
+    
+    bubbleCtx.strokeStyle = `rgba(245, 245, 245, ${1*dimFactor})`;
+    bubbleCtx.beginPath();
+    bubbleCtx.lineWidth = this.radius/10;
+    bubbleCtx.lineCap = "round";
+    bubbleCtx.arc(this.xPosition,this.yPosition,this.radius*0.65,210/360*2*Math.PI,217/360*2*Math.PI);
+    bubbleCtx.stroke();
+    
+    bubbleCtx.strokeStyle = `rgba(245, 245, 245, ${1*dimFactor})`;
+    bubbleCtx.beginPath();
+    bubbleCtx.lineWidth= this.radius/6;
+    bubbleCtx.lineCap="round";
+    bubbleCtx.arc(this.xPosition,this.yPosition,this.radius*0.65,240/360*2*Math.PI,271/360*2*Math.PI);
     bubbleCtx.stroke();
 
-    for (var i = 0; i < allBubbles.length; i++){
-
-    }
-    // fill(dropColor);
-    // ellipse(this.position.x,this.position.y,dropDia,dropDia);
 }
 
 
 function whenThePageLoads(){
-    // console.log('on load');
+    
+    convertParsedObjectsToBubbleObjects();
+
     setInterval(drawBubbleCanvas, bubbleUpdateInterval);
 
 }
 
+function convertParsedObjectsToBubbleObjects() {
 
-// page load
-// draw bubble canvas
-//    time++
-//    add bubbles
-//    clear canvas
-//    draw and update each bubble
+    // if no bubble data, return
+    if (localStorage.getItem('bubArray') === null){
+        return;
+    }
+
+    var unparsedBubArray = localStorage.getItem('bubArray');
+    var parsedBubArray = JSON.parse(unparsedBubArray);
+    // console.table(parsedBubArray);
+    var tempBubbleHolder = parsedBubArray;
+
+    // create a set of new bubbles
+    // these will automatically get added to the allBubbles array
+    for (var i = 0; i < tempBubbleHolder.length; i++){
+        var bubFromStorage = tempBubbleHolder[i];
+
+        // create a bubble that will have its values re-assigned
+        var newBub = new Bubble(2000,2000);
+
+        newBub.xPosition = bubFromStorage.xPosition;
+        newBub.yPosition = bubFromStorage.yPosition;
+        newBub.radius = bubFromStorage.radius;
+        newBub.age = bubFromStorage.age;
+        newBub.xSpeed = bubFromStorage.xSpeed;
+        newBub.ySpeed = bubFromStorage.ySpeed;
+    }
+
+}
 
 // drawCanvas , called constantly
 function drawBubbleCanvas() {
@@ -91,8 +159,8 @@ function drawBubbleCanvas() {
     // add bubbles every t% add interval
     if (time % bubbleRate === 0) {
 
-        var newX = Math.floor(Math.random()*bubbleCanvasEl.width);
-        var newY = bubbleCanvasEl.height;
+        var newX = Math.floor(Math.random()*document.documentElement.clientWidth);
+        var newY = document.documentElement.clientHeight + 25;
         
         new Bubble(newX, newY);
 
@@ -111,6 +179,22 @@ function drawBubbleCanvas() {
         //update the bubble position
         allBubbles[i].update();
     }
+
+    // cull the bubbles
+    if (allBubbles.length > 50){
+        allBubbles.shift();
+    }
+
+    // add the bubbles array into local storage
+    var stringifyBubbles = JSON.stringify(allBubbles);
+
+    // remove existing bub data
+    if (localStorage.getItem('bubArray' === null)){
+        localStorage.removeItem('bubArray');
+    }
+
+    localStorage.setItem('bubArray', stringifyBubbles);
+    
 }
 
 whenThePageLoads();
