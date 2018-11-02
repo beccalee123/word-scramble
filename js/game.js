@@ -96,6 +96,7 @@ function endGameStyling() {
   document.getElementById('gameSpace').style.backgroundColor = 'lightblue';
   document.getElementById('gameSpace').style.borderColor = 'navy';
   document.getElementById('timerBar').style.visibility = 'hidden';
+  document.getElementById ('canvas').style.display = 'none';
 }
 
 function hide(element, hiddenOrNone) {
