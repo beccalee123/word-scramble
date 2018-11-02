@@ -369,11 +369,13 @@ function scrambledWord(roundNumber) {
   //scramble until shuffledWord is different from letterArray
   //TODO: add another case to make sure it is't the same scramble
   // currentWordScramble
-  do {
+  
     shuffledWord.shuffle(letterArray);
     shuffledWord = shuffledWord.join(''); //turn into string for the check
-  } while (shuffledWord === word);  
-  {
+    console.log('DO ACTIVE');
+    
+    while (shuffledWord === word) {
+    console.log(`WHILE ACTIVE`);
     shuffledWord = shuffledWord.split(''); //turn into array
     shuffledWord.shuffle(letterArray);    //reshuffle
     shuffledWord = shuffledWord.join(''); //turn into string for the check
