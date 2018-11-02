@@ -1,3 +1,7 @@
+/* ~~~~~~~~~~~~~~~~ */
+/* Timer */
+/* ~~~~~~~~~~~~~~~~ */
+
 #timerBar {
     display: block;
     background-image: linear-gradient(rgb(37, 207, 37), rgb(18, 105, 18));
@@ -12,6 +16,10 @@
     width: 705px;
 }
 
+/* ~~~~~~~~~~~~~~~~ */
+/* Interactive Fields */
+/* ~~~~~~~~~~~~~~~~ */
+
 input {
     width: 430px;
     height: 100px;
@@ -24,21 +32,13 @@ input {
     margin-right: 2px;
 }
 
-#scrambleP {
-    color: navy;
-    font-size: 75px;
-    margin-top: 60px;
-    display: inline-block;
-    font-family: 'Overpass Mono', monospace;
-}
-
 #gameSpace {
     
     background: rgb(225, 246, 255);
     border: 3px solid rgb(225, 246, 255);
     width: 713px;
     height: 190px;
-    margin-left: 0px;  /* changed from 91 */
+    margin-left: 0px;
     text-align: center;
     border-radius: 5px;
     position: relative;
@@ -62,6 +62,7 @@ canvas {
     display: inline-block;
 }
 
+/*Score*/
 main h2 {
     font-family: 'Slackey', cursive;
     float: right;
@@ -89,6 +90,20 @@ main h2 {
     border-radius: 5px;
 }
 
+#alerts {
+    height: 20px;
+    width: 680px;
+    text-align: center;
+    margin: 15px 15px 15px 15px;
+    color: rgb(225, 246, 255);
+    font-size: 1.1em;
+    font-weight: bolder;
+    text-shadow: 1px 2px navy;
+}
+
+/* ~~~~~~~~~~~~~~~~ */
+/* Buttons */
+/* ~~~~~~~~~~~~~~~~ */
 #submit-score {
     width: 200px;
     height: 36px;
@@ -104,14 +119,6 @@ main h2 {
     margin-left: 15px;
     margin-top: 1px;
     border-radius: 5px;
-}
-
-h3 {
-    font-family: 'Slackey', cursive;
-    font-size: 40px;
-    text-transform: uppercase;
-    text-align: center;
-    margin: 40px;
 }
 
 #startGame {
@@ -139,17 +146,6 @@ h3 {
     border: 3px solid rgb(225, 246, 255);
     border-radius: 5px;
     visibility: hidden;
-}
-
-#alerts {
-    height: 20px;
-    width: 680px;
-    text-align: center;
-    margin: 15px 15px 15px 15px;   /* changed from 105 to 15 on left margin */
-    color: rgb(225, 246, 255);
-    font-size: 1.1em;
-    font-weight: bolder;
-    text-shadow: 1px 2px navy;
 }
 
 #scramble-submit {
