@@ -225,7 +225,7 @@ startAnimatingCanvas();
 // start game
 // skip word
 // ??
-initializeCanvasWithANewWord('INTRO MSG');
+initializeCanvasWithANewWord('');
 
 
 
