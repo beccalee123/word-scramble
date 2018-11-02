@@ -72,7 +72,8 @@ function startGame() {
   startTimer();
   roundCount = 0;
   currentWordScramble = scrambledWord(roundCount).toUpperCase();
-  // console.log(currentWordScramble);
+  restrictInput();
+  clearInput();
   initializeCanvasWithANewWord(currentWordScramble);  // added
   activateSubmission();
   createScoreCounter();
@@ -82,6 +83,10 @@ function startGame() {
   activateRestart();
 }
 
+function restrictInput() {
+  var inputBox = document.getElementById('input');
+  inputBox.setAttribute('maxlength', '10');
+}
 
 function endGame() {
   endGameDataCollection();
@@ -305,9 +310,9 @@ function deactivateSkip() {
 }
 
 document.onkeydown = function (e) {
-  if (e.which === 39) {
+  if (e.which === 40) {
     skipWord();
-  } else if ((e.which === 37)) {
+  } else if ((e.which === 38)) {
     swapLetters();
   }
 };

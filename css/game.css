@@ -141,11 +141,11 @@ h3 {
 }
 
 #alerts {
-    height: 15px;
+    height: 20px;
     width: 680px;
     text-align: center;
     margin: 15px 15px 15px 15px;   /* changed from 105 to 15 on left margin */
-    color: rgb(21, 218, 208);
+    color: navy;
     font-size: 1.1em;
 }
 
@@ -188,7 +188,7 @@ h3 {
     text-align: center;
 }
 
-#startGame:hover, #scramble-submit:hover, #skipWord:hover, #submit-score:hover {
+#startGame:hover, #scramble-submit:hover, #skipWord:hover, #submit-score:hover, #shuffle:hover{
     color: navy;
     border: 3px solid navy;
     transition: .5s;

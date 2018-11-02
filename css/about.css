@@ -7,6 +7,7 @@ div {
   max-height: auto;
   float: left;
 }
+
 .bio-contianer{
   height: 50%;
   width: 48%;
@@ -15,6 +16,7 @@ div {
   min-height: 400px;
   float: left;
 }
+
 p {
   line-height: 1.4em;
   font-size: 1.1em;
