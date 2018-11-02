@@ -137,11 +137,11 @@ h3 {
 }
 
 #alerts {
-    height: 15px;
+    height: 20px;
     width: 680px;
     text-align: center;
-    margin: 15px 15px 15px 105px;
-    color: rgb(21, 218, 208);
+    margin: 10px 15px 20px 105px;
+    color: navy;
     font-size: 1.1em;
 }
 

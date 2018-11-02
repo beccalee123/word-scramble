@@ -72,7 +72,8 @@ function startGame() {
   startTimer();
   roundCount = 0;
   currentWordScramble = scrambledWord(roundCount).toUpperCase();
-  // console.log(currentWordScramble);
+  restrictInput();
+  clearInput();
   initializeCanvasWithANewWord(currentWordScramble);  // added
   activateSubmission();
   createScoreCounter();
@@ -82,6 +83,10 @@ function startGame() {
   activateRestart();
 }
 
+function restrictInput() {
+  var inputBox = document.getElementById('input');
+  inputBox.setAttribute('maxlength', '10');
+}
 
 function endGame() {
   endGameDataCollection();
