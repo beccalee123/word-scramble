@@ -203,10 +203,10 @@ renderTimer();
 // TODO: is this the best place for this? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var canvasEl = document.getElementById('canvas');
 var ctx = canvasEl.getContext("2d");
-ctx.font = "3em 'Overpass Mono'";
+ctx.font = "75px 'Overpass Mono'";
 
 var letterSpacing = 20;
-var letterWidth = 15;
+var letterWidth = 35;
 
 var animate;
 var allLetters = [];
@@ -225,7 +225,7 @@ startAnimatingCanvas();
 // start game
 // skip word
 // ??
-initializeCanvasWithANewWord('OCEAN COMMOTION');
+initializeCanvasWithANewWord('INTRO MSG');
 
 
 

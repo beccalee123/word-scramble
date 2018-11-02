@@ -53,8 +53,8 @@ Letter.prototype.rand = function(min, max) {
 Letter.prototype.wiggle = function() {
     // a wiggle is a short move to a random place close by
 
-    var max = 7; 
-    var min = 3;
+    var max = 20; 
+    var min = 10;
 
     var randomX = this.rand(min, max);
     var randomY = this.rand(min, max);
@@ -67,7 +67,7 @@ Letter.prototype.wiggle = function() {
         var xDistFromHome = (this.xPosition + randomX) - this.xInitial;
         var yDistFromHome = (this.yPosition + randomY) - this.yInitial;
 
-        if (Math.abs(xDistFromHome) < 7 && Math.abs(yDistFromHome) < 7){
+        if (Math.abs(xDistFromHome) < 12 && Math.abs(yDistFromHome) < 12){
             close = true;
         } else {
             randomX = this.rand(min, max);
@@ -80,7 +80,7 @@ Letter.prototype.wiggle = function() {
 
 Letter.prototype.assignWiggle = function() {
 
-    this.wiggleCount = 4;
+    this.wiggleCount = 2;
     this.wiggling = true;
     this.xMoving = true;
     this.yMoving = true;
@@ -130,7 +130,7 @@ Letter.prototype.incrementPosition = function() {
     var yDistance = this.yDestination - this.yPosition;
 
     // x motion for all moves
-    if (Math.abs(xDistance) > 1 ) {
+    if (Math.abs(xDistance) > 3 ) {
         this.xPosition = this.xPosition + this.xSpeed * Math.sign(xDistance);
     } else {
         // destination reached
@@ -140,7 +140,7 @@ Letter.prototype.incrementPosition = function() {
 
     // y motion when wiggling
     if (this.wiggling){
-        if (Math.abs(yDistance) > 1 ) {
+        if (Math.abs(yDistance) > 3 ) {
             this.yPosition = this.yPosition + this.ySpeed * Math.sign(yDistance);
         } else {
             // destination reached
@@ -356,7 +356,7 @@ function renderInitial(){
     var canvasHeight = document.getElementsByTagName('canvas')[0].height;
 
     // Y is about the middle of the canvas
-    var wordY = canvasHeight/2 + 15; // add an offset to center the word
+    var wordY = canvasHeight/2 + 23; // add an offset to center the word
 
     // get X coords
     var letterXCoordinates = generateXCoordinates(wordArray.length);
@@ -485,7 +485,7 @@ function generateXCoordinates(numLetters){
     var wordLength = (spacing * numLetters) - letterSpacing;
 
     // word start X
-    var wordStartX = (canvasWidth / 2) - (wordLength / 2)
+    var wordStartX = (canvasWidth / 2) - (wordLength / 2) - letterWidth/2 + 10;
 
     // calculate word positions and fill array
     for (var i = 0; i < numLetters; i++){
