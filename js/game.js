@@ -89,6 +89,7 @@ function endGame() {
   deactivateSkip();
   endGameStyling();
   started = false;
+  clearInput();
   //TODO reset/restart button
 }
 
