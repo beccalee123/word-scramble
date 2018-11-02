@@ -77,6 +77,7 @@ function startGame() {
   initializeCanvasWithANewWord(currentWordScramble);  // added
   activateSubmission();
   createScoreCounter();
+  input.removeAttribute('disabled');
   resetFocus();
   activateSkip();
   hide(startGameButton, 'none');
