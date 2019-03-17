@@ -3,28 +3,11 @@
 A word scramble game by Becca Lee, Brent Woodward, Fletcher LaRue, and Jacob Anderson for our Code Fellows 201d40 final project. This project represents what the team could accomplish after only 3 weeks of learning HTML, CSS and JavaScript.
 
 ## About the team
-
-Becca Lee:  
-A particularly employable web devloper learning to program at Code Fellows. 
-GitHub link: https://github.com/beccalee123  
-Twitter link: https://twitter.com/the_becca_lee  
-
-Brent Woodward:  
-A particularly employable web devloper learning to program at Code Fellows.  
-Github: https://github.com/BrentTech
-
-Fletcher LaRue:  
-A particularly employable web devloper learning to program at Code Fellows.  
-Github: https://github.com/asdFletcher
-
-Jacob Anderson:  
-A particularly employable web devloper learning to program at Code Fellows.  
-Github: https://github.com/1anderson2jacob
-
+Created by Becca Lee, Brent Woodward, Fletcher LaRue, and Jacob Anderson
 
 ## Date
 Completed October of 2018.  
-Total time coding: 4 days Monday thru Tursday  
+Total time coding: 4 days Monday thru Thursday  
 October 29 thru Nov 1, 2018 (4 days)  
 Some project layout was completed during the prior weekend
 
